@@ -1,5 +1,6 @@
 package csp.util;
 
+import csp.exceptions.EmptyLinkedListException;
 import csp.exceptions.IndexOutOfBoundsException;
 
 public class LinkedList<T> {
@@ -94,6 +95,12 @@ public class LinkedList<T> {
 
 	public void setSize(int size) {
 		this.size = size;
+	}
+	public Node<T> followLink() throws EmptyLinkedListException, IndexOutOfBoundsException
+	{
+		if(isEmpty())
+			throw new EmptyLinkedListException("The linked list is empty");
+		return first.followLink(0);
 	}
 
 	@Override

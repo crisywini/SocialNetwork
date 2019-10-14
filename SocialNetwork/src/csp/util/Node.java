@@ -134,4 +134,17 @@ public class Node<T> {
 		}
 		return info;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object obj) {
+		Node<T> auxiliar;
+		boolean equals = false;
+		if(obj instanceof Node)
+		{
+			auxiliar = (Node<T>) obj;
+			if(auxiliar.getValue().equals(this.getValue()))
+				equals = true;
+		}
+		return equals;
+	}
 }

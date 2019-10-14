@@ -1,11 +1,12 @@
 package csp.model;
 
 import csp.util.Queue;
+import csp.util.Stack;
 
 public class Comment {
 	private String message;
-	private int counterLikes;
 	private Queue<Comment> replies;
+	private Stack<Like> likes;
 	private Post postAssociated;
 	/**
 	 * Metodo constructor de la clase Comment
@@ -13,9 +14,9 @@ public class Comment {
 	 */
 	public Comment(String message, Post postAssociated) {
 		this.message = message;
-		counterLikes = 0;
 		replies = new Queue<Comment>();
 		this.postAssociated = postAssociated;
+		likes = new Stack<Like>();
 	}
 	/**
 	 * Metodo constructor de la clase Comment
@@ -30,12 +31,6 @@ public class Comment {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public int getCounterLikes() {
-		return counterLikes;
-	}
-	public void setCounterLikes(int counterLikes) {
-		this.counterLikes = counterLikes;
-	}
 	public Queue<Comment> getReplies() {
 		return replies;
 	}
@@ -47,5 +42,11 @@ public class Comment {
 	}
 	public void setPostAssociated(Post postAssociated) {
 		this.postAssociated = postAssociated;
+	}
+	public Stack<Like> getLikes() {
+		return likes;
+	}
+	public void setLikes(Stack<Like> likes) {
+		this.likes = likes;
 	}
 }

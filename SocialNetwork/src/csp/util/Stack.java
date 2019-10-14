@@ -1,5 +1,6 @@
 package csp.util;
 
+import csp.exceptions.EmptyLinkedListException;
 import csp.exceptions.IndexOutOfBoundsException;
 
 public class Stack<T> {
@@ -52,7 +53,31 @@ public class Stack<T> {
 			throw new RuntimeException("The list is empty");
 		return linkedList.getFirst();
 	}
-
+	/**
+	 * Metodo que permite verificar si un nodo esta en la pila
+	 * @param element
+	 * @return
+	 * @throws IndexOutOfBoundsException
+	 * @throws EmptyLinkedListException 
+	 */
+	public boolean contains(Node<T> element) throws IndexOutOfBoundsException, EmptyLinkedListException
+	{
+		Node<T> auxiliar = peek();
+		boolean contains = false;
+		while (auxiliar != null) {
+			if (auxiliar.getSizelinks() == 0)
+				auxiliar = null;
+			else
+				try {
+					auxiliar = auxiliar.followLink(0);
+					if(auxiliar.equals(element))
+						contains = true;
+				} catch (IndexOutOfBoundsException e) {
+					e.printStackTrace();
+				}
+		}
+		return contains;
+	}
 	public LinkedList<T> getLinkedList() {
 		return linkedList;
 	}
