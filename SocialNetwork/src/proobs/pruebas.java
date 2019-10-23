@@ -14,10 +14,7 @@ public class pruebas {
 		crisi.setName("Crisi");
 		User nico = new User();
 		nico.setName("Nico");
-		Post miPost = new Post("Hola", crisi);
-		miPost.giveALike(nico);
-		miPost.giveALike(nico);
-		miPost.giveALike(crisi);
+		Post miPost = new Post("Hola", crisi);	
 		System.out.println(miPost);
 	}
 }
