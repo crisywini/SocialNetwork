@@ -9,7 +9,7 @@ public class Love {
 	 */
 	public Love(User userAssociated) {
 		this.userAssociated = userAssociated;
-		id = "<3";
+		id = "</3";
 	}
 	/**
 	 * Metodo constructor vacio de la clase Love
