@@ -2,7 +2,7 @@ package co.uniquindio.redSocial.util;
 
 import java.util.ArrayList;
 
-import co.uniquindio.redSocial.exceptions.IndexOutOfBoundsException;
+import co.uniquindio.redSocial.exceptions.BigIndexException;
 
 public class Node<T> {
 	private T value;
@@ -46,7 +46,7 @@ public class Node<T> {
 	 */
 	public void connectNode(Node<T> destiny, int index) {
 		if (index >= getSizelinks()) {
-			int auxiliar = index -getSizelinks();
+			int auxiliar = index - getSizelinks();
 			for (int i = 0; i < auxiliar; i++)
 				links.add(null);
 			links.add(destiny);
@@ -58,12 +58,12 @@ public class Node<T> {
 	 * Metodo que permite desconectar un nodo dado el indice en la lista de nodos
 	 * 
 	 * @param index el cual se quiere eliminar
-	 * @throws IndexOutOfBoundsException si sobre pasa el tamanio de la lista o si
-	 *                                   es menor que el tamanio de la lista
+	 * @throws BigIndexException si sobre pasa el tamanio de la lista o si es menor
+	 *                           que el tamanio de la lista
 	 */
-	public void disconnect(int index) throws IndexOutOfBoundsException {
+	public void disconnect(int index) throws BigIndexException {
 		if (index >= getSizelinks() || index < 0)
-			throw new IndexOutOfBoundsException("The index: " + index + " is out of bounds.");
+			throw new BigIndexException("The index: " + index + " is out of bounds.");
 		links.set(index, null);
 	}
 
@@ -123,26 +123,27 @@ public class Node<T> {
 	 */
 	@Override
 	public String toString() {
-		String info = "<" + value.toString() + "> ";
-		info += "Size: " + getSizelinks() + " ";
-		for (int i = 0; i < getSizelinks(); i++) {
-			info += "[" + (i) + "]:";
-			if (links.get(i) != null)
-				info += links.get(i).getValue();
+		String info = "Value: " + value + " Conexiones [";
+		for (Node<T> node : links) {
+			if (node == null)
+				info += "null,";
 			else
-				info += null + "";
+				info += node.getValue() + ",";
 		}
+		info = info.substring(0, info.length() - 1) + "]";
+		if (links.size() == 0)
+			info = "Value: " + value + " Conexiones []";
 		return info;
 	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object obj) {
 		Node<T> auxiliar;
 		boolean equals = false;
-		if(obj instanceof Node)
-		{
+		if (obj instanceof Node) {
 			auxiliar = (Node<T>) obj;
-			if(auxiliar.getValue().equals(this.getValue()))
+			if (auxiliar.getValue().equals(this.getValue()))
 				equals = true;
 		}
 		return equals;

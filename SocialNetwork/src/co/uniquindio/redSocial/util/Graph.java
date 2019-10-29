@@ -1,18 +1,23 @@
 package co.uniquindio.redSocial.util;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
+import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
+import co.uniquindio.redSocial.exceptions.NodeGraphWithLinksException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
 
-public class Graph<T> implements Serializable{
-	
+public class Graph<T> implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private HashMap<String, Node<T>> graph;
 	private Node<T> initial;
+
 	/**
 	 * Metodo constructor sin parametros de la clase Grafo
 	 */
@@ -20,8 +25,10 @@ public class Graph<T> implements Serializable{
 		graph = new HashMap<String, Node<T>>();
 		initial = null;
 	}
+
 	/**
 	 * Metodo constructor de la clase Grafo
+	 * 
 	 * @param initial
 	 */
 	public Graph(Node<T> initial) {
@@ -32,7 +39,7 @@ public class Graph<T> implements Serializable{
 	public HashMap<String, Node<T>> getGraph() {
 		return graph;
 	}
-	
+
 	public void setGraph(HashMap<String, Node<T>> graph) {
 		this.graph = graph;
 	}
@@ -44,27 +51,87 @@ public class Graph<T> implements Serializable{
 	public void setInitial(Node<T> initial) {
 		this.initial = initial;
 	}
+
 	/**
 	 * Metodo para verificar si un nodo esta en el grafo
+	 * 
 	 * @param name nombre del nodo
-	 * @return 
+	 * @return
 	 */
-	public boolean isOnGraph (String name) {
+	public boolean isOnGraph(String name) {
 		return graph.containsKey(name);
 	}
+
 	/**
 	 * Metodo para agregar un nodo al grafo
-	 * @param name nombre del nodo
+	 * 
+	 * @param name  nombre del nodo
 	 * @param value valor del nodo
-	 * @throws Exception Si el nodo a agregar ya existe
+	 * @throws NodeRepeatException Si el nodo a agregar ya existe
 	 */
-	public void addNode (String name, T value) throws Exception {
+	public void addNode(String name, T value) throws NodeRepeatException {
 		Node<T> nodo = new Node<T>(value);
 		if (!isOnGraph(name)) {
 			graph.put(name, nodo);
-		}else {
+		} else {
 			throw new NodeRepeatException("El nodo: " + name + " ya existe en el grafo!");
 		}
 	}
-	
+
+	public Node<T> remove(String name) throws NodeGraphWithLinksException, NodeGraphNullException {
+		Node<T> auxiliar;
+		if (!isOnGraph(name))
+			throw new NodeGraphNullException("El nodo: " + name + " no se encuentra en el grafo");
+
+		auxiliar = graph.get(name);
+		if (auxiliar.getLinks().size() > 0)
+			throw new NodeGraphWithLinksException(
+					"El nodo: " + name + " no puede ser eliminado ya que tiene mas conexiones");
+		return graph.remove(name);
+	}
+
+	public void connectWithAnotherNode(String originName, String destinyName) throws NodeGraphNullException {
+		boolean isConnected = false;
+		Node<T> origin = graph.get(originName);
+		Node<T> destiny = graph.get(destinyName);
+		if(origin==null||destiny==null)
+			throw new NodeGraphNullException("El nodo: "+ originName+" o el nodo: "+ destinyName+" no existen en el grafo");
+	}
+	/**
+	 * Metodo que permite obtener el primer enlace libre de un nodo 
+	 * @param name nombre del nodo
+	 * @return el indice en el cual exista un espacio libre
+	 * @throws NodeGraphNullException  si el nodo no existe
+	 */
+	public int getAvailableIndex(String name) throws NodeGraphNullException {
+		if(!graph.containsKey(name))
+			throw new NodeGraphNullException("El nodo: "+name+" no existe en el grafo");
+		Node<T> auxiliar = graph.get(name);
+		int index = -1;
+		boolean isAvailable = false;
+		for (int i = 0; i < auxiliar.getLinks().size() && !isAvailable; i++) {
+			if(auxiliar.getLinks().get(i)==null)
+			{
+				index = i;
+				isAvailable = true;
+			}
+		}
+		if(auxiliar.getLinks().size()==0)
+			index = 0;
+		else if(index == -1)
+			index = auxiliar.getLinks().size();
+		return index;
+	}
+
+	@Override
+	public String toString() {
+		String info = "[";
+		Iterator<String> iterator = graph.keySet().iterator();
+		while (iterator.hasNext()) {
+			info += graph.get(iterator.next()).toString() + ",";
+		}
+		info = info.substring(0, info.length() - 1) + "]";
+		return info;
+	}
+
 }

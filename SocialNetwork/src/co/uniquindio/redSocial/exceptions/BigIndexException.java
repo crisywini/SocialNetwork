@@ -1,13 +1,13 @@
 package co.uniquindio.redSocial.exceptions;
 
-public class LikeNullException extends Exception {
+public class BigIndexException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public LikeNullException(String errorMessage) {
+	public BigIndexException(String errorMessage) {
 		super(errorMessage);
 	}
 

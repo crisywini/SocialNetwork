@@ -1,7 +1,6 @@
 package co.uniquindio.redSocial.util;
 
 import co.uniquindio.redSocial.exceptions.EmptyLinkedListException;
-import co.uniquindio.redSocial.exceptions.IndexOutOfBoundsException;
 
 public class Stack<T> {
 	private LinkedList<T> linkedList;
@@ -53,15 +52,16 @@ public class Stack<T> {
 			throw new RuntimeException("The list is empty");
 		return linkedList.getFirst();
 	}
+
 	/**
 	 * Metodo que permite verificar si un nodo esta en la pila
+	 * 
 	 * @param element
 	 * @return
 	 * @throws IndexOutOfBoundsException
-	 * @throws EmptyLinkedListException 
+	 * @throws EmptyLinkedListException
 	 */
-	public boolean contains(Node<T> element) throws IndexOutOfBoundsException, EmptyLinkedListException
-	{
+	public boolean contains(Node<T> element) throws IndexOutOfBoundsException, EmptyLinkedListException {
 		Node<T> auxiliar = peek();
 		boolean contains = false;
 		while (auxiliar != null) {
@@ -70,7 +70,7 @@ public class Stack<T> {
 			else
 				try {
 					auxiliar = auxiliar.followLink(0);
-					if(auxiliar.equals(element))
+					if (auxiliar.equals(element))
 						contains = true;
 				} catch (IndexOutOfBoundsException e) {
 					e.printStackTrace();
@@ -78,6 +78,7 @@ public class Stack<T> {
 		}
 		return contains;
 	}
+
 	public LinkedList<T> getLinkedList() {
 		return linkedList;
 	}

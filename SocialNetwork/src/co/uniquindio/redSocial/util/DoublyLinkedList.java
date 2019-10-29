@@ -1,6 +1,5 @@
 package co.uniquindio.redSocial.util;
 
-import co.uniquindio.redSocial.exceptions.IndexOutOfBoundsException;
 
 public class DoublyLinkedList<T> {
 	private Node<T> first;

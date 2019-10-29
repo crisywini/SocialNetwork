@@ -1,20 +1,14 @@
 package prueba;
 
-import co.uniquindio.redSocial.exceptions.EmptyLinkedListException;
-
-import co.uniquindio.redSocial.exceptions.IndexOutOfBoundsException;
-import co.uniquindio.redSocial.exceptions.LikeNullException;
-import co.uniquindio.redSocial.model.Post;
-import co.uniquindio.redSocial.model.User;
-
+import co.uniquindio.redSocial.util.Graph;
+import co.uniquindio.redSocial.util.Node;
 
 public class pruebas {
-	public static void main(String[] args) throws IndexOutOfBoundsException, EmptyLinkedListException, LikeNullException {
-		User crisi = new User();
-		crisi.setName("Crisi");
-		User nico = new User();
-		nico.setName("Nico");
-		Post miPost = new Post("Hola", crisi);	
-		System.out.println(miPost);
+	public static void main(String[] args) throws Exception {
+		Graph<String> grafito = new Graph<String>(new Node<String>("Initial"));
+		grafito.addNode("Crisi", "321321");
+		grafito.addNode("321", "NIco");
+		grafito.connectWithAnotherNode("Crisi", "321");
+		System.out.println(grafito);
 	}
 }

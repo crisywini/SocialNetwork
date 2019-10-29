@@ -1,7 +1,6 @@
 package co.uniquindio.redSocial.util;
 
 import co.uniquindio.redSocial.exceptions.EmptyLinkedListException;
-import co.uniquindio.redSocial.exceptions.IndexOutOfBoundsException;
 
 public class LinkedList<T> {
 	private Node<T> first;
@@ -13,8 +12,10 @@ public class LinkedList<T> {
 		last = null;
 		size = 0;
 	}
+
 	/**
 	 * Metodo que permite agreagr un nodo al principio de la lista
+	 * 
 	 * @param element
 	 */
 	public void addFirst(T element) {
@@ -96,9 +97,9 @@ public class LinkedList<T> {
 	public void setSize(int size) {
 		this.size = size;
 	}
-	public Node<T> followLink() throws EmptyLinkedListException, IndexOutOfBoundsException
-	{
-		if(isEmpty())
+
+	public Node<T> followLink() throws EmptyLinkedListException, IndexOutOfBoundsException {
+		if (isEmpty())
 			throw new EmptyLinkedListException("The linked list is empty");
 		return first.followLink(0);
 	}

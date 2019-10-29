@@ -1,7 +1,5 @@
 package co.uniquindio.redSocial.util;
 
-import co.uniquindio.redSocial.exceptions.IndexOutOfBoundsException;
-
 public class Queue<T> {
 	private LinkedList<T> linkedList;
 
