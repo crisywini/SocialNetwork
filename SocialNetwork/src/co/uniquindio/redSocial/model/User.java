@@ -2,7 +2,8 @@ package co.uniquindio.redSocial.model;
 
 import java.io.Serializable;
 
-import co.uniquindio.redSocial.util.DoublyLinkedList;
+import co.uniquindio.redSocial.exceptions.NodeRepeatException;
+import co.uniquindio.redSocial.util.Graph;
 
 public class User implements Serializable {
 	/**
@@ -16,7 +17,7 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private String image;
-	private DoublyLinkedList<User> friends;
+	private Graph<User> friends;
 	private Wall myWall;
 
 	/**
@@ -38,7 +39,7 @@ public class User implements Serializable {
 		this.email = email;
 		this.password = password;
 		this.image = image;
-		friends = new DoublyLinkedList<User>();
+		setFriends(new Graph<User>());
 		myWall = new Wall(this);
 	}
 
@@ -105,19 +106,32 @@ public class User implements Serializable {
 		this.image = image;
 	}
 
-	public DoublyLinkedList<User> getFriends() {
-		return friends;
-	}
-
-	public void setFriends(DoublyLinkedList<User> friends) {
-		this.friends = friends;
-	}
-
 	public Wall getMyWall() {
 		return myWall;
 	}
 
 	public void setMyWall(Wall myWall) {
 		this.myWall = myWall;
+	}
+
+	public Graph<User> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(Graph<User> friends) {
+		this.friends = friends;
+	}
+	/**
+	 * Metodo que permite agregar un amigo
+	 * @param newFriend
+	 * @throws NodeRepeatException
+	 */
+	public void addFriend(User newFriend) throws NodeRepeatException {
+		getFriends().addNode(newFriend.id, newFriend);
+	}
+	
+	public void blockFriend(User blockFriend)
+	{
+		
 	}
 }
