@@ -78,6 +78,14 @@ public class Graph<T> implements Serializable {
 		}
 	}
 
+	/**
+	 * Metodo que permite remover un nodo
+	 * 
+	 * @param name del nodo
+	 * @return la informacion del nodo removido
+	 * @throws NodeGraphWithLinksException si el nodo tiene alguna conexion
+	 * @throws NodeGraphNullException      si el nodo no existe
+	 */
 	public Node<T> remove(String name) throws NodeGraphWithLinksException, NodeGraphNullException {
 		Node<T> auxiliar;
 		if (!isOnGraph(name))
@@ -90,37 +98,76 @@ public class Graph<T> implements Serializable {
 		return graph.remove(name);
 	}
 
+	/**
+	 * Metodo que permite conectar un nodo con otro
+	 * 
+	 * @param originName  nodo origen
+	 * @param destinyName nodo destino
+	 * @throws NodeGraphNullException si el nodo no existe
+	 */
 	public void connectWithAnotherNode(String originName, String destinyName) throws NodeGraphNullException {
-		boolean isConnected = false;
 		Node<T> origin = graph.get(originName);
 		Node<T> destiny = graph.get(destinyName);
-		if(origin==null||destiny==null)
-			throw new NodeGraphNullException("El nodo: "+ originName+" o el nodo: "+ destinyName+" no existen en el grafo");
+		if (origin == null || destiny == null)
+			throw new NodeGraphNullException(
+					"El nodo: " + originName + " o el nodo: " + destinyName + " no existen en el grafo");
+		int availableOrigin = getAvailableIndex(originName);
+		int availableDestiny = getAvailableIndex(destinyName);
+		origin.connectNode(destiny, availableOrigin);
+		destiny.connectNode(origin, availableDestiny);
 	}
+
 	/**
-	 * Metodo que permite obtener el primer enlace libre de un nodo 
+	 * Metodo que permite obtener el primer enlace libre de un nodo
+	 * 
 	 * @param name nombre del nodo
 	 * @return el indice en el cual exista un espacio libre
-	 * @throws NodeGraphNullException  si el nodo no existe
+	 * @throws NodeGraphNullException si el nodo no existe
 	 */
 	public int getAvailableIndex(String name) throws NodeGraphNullException {
-		if(!graph.containsKey(name))
-			throw new NodeGraphNullException("El nodo: "+name+" no existe en el grafo");
+		if (!graph.containsKey(name))
+			throw new NodeGraphNullException("El nodo: " + name + " no existe en el grafo");
 		Node<T> auxiliar = graph.get(name);
 		int index = -1;
 		boolean isAvailable = false;
 		for (int i = 0; i < auxiliar.getLinks().size() && !isAvailable; i++) {
-			if(auxiliar.getLinks().get(i)==null)
-			{
+			if (auxiliar.getLinks().get(i) == null) {
 				index = i;
 				isAvailable = true;
 			}
 		}
-		if(auxiliar.getLinks().size()==0)
+		if (auxiliar.getLinks().size() == 0)
 			index = 0;
-		else if(index == -1)
+		else if (index == -1)
 			index = auxiliar.getLinks().size();
 		return index;
+	}
+
+	/**
+	 * Metodo que permite seguir el enlace de un nodo
+	 * 
+	 * @param name  del nodo
+	 * @param index del enlace
+	 * @return el nodo segun el indice
+	 * @throws NodeGraphNullException si el nodo no existe
+	 */
+	public Node<T> followLink(String name, int index) throws NodeGraphNullException {
+		if (!isOnGraph(name))
+			throw new NodeGraphNullException("El nodo: " + name + " no se encuentra en el grafo");
+		return graph.get(name).followLink(index);
+	}
+
+	/**
+	 * Metodo que permite almacenar un dato en un nodo del grafo
+	 * 
+	 * @param name  del nodo
+	 * @param value a almacenar
+	 * @throws NodeGraphNullException si el nodo no existe
+	 */
+	public void setValue(String name, T value) throws NodeGraphNullException {
+		if (!isOnGraph(name))
+			throw new NodeGraphNullException("El nodo: " + name + " no se encuentra en el grafo");
+		graph.get(name).setValue(value);
 	}
 
 	@Override
