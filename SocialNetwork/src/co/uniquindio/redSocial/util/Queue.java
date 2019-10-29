@@ -1,5 +1,8 @@
 package co.uniquindio.redSocial.util;
 
+import co.uniquindio.redSocial.exceptions.BigIndexException;
+import co.uniquindio.redSocial.exceptions.EmptyLinkedListException;
+
 public class Queue<T> {
 	private LinkedList<T> linkedList;
 
@@ -11,7 +14,7 @@ public class Queue<T> {
 		linkedList.addLast(element);
 	}
 
-	public T poll() throws RuntimeException, IndexOutOfBoundsException {
+	public T poll() throws EmptyLinkedListException, BigIndexException {
 		return linkedList.removeFirst();
 	}
 

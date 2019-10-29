@@ -33,7 +33,6 @@ public class Post implements Serializable {
 	 * @param userAssociated usuario quien creo el post
 	 */
 	public Post(String comment, User userAssociated) {
-		this();
 		this.comment = comment;
 		this.userAssociated = userAssociated;
 	}
@@ -84,6 +83,14 @@ public class Post implements Serializable {
 
 	public void setLoves(Stack<Love> loves) {
 		this.loves = loves;
+	}
+	/**
+	 * Metodo que le permite a un usuario dar like
+	 * @param liker
+	 */
+	public void giveALike(User liker) {
+		Like like = new Like(userAssociated);
+		likes.push(like);
 	}
 
 	@Override

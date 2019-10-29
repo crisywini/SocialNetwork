@@ -1,5 +1,6 @@
 package co.uniquindio.redSocial.util;
 
+import co.uniquindio.redSocial.exceptions.BigIndexException;
 
 public class DoublyLinkedList<T> {
 	private Node<T> first;
@@ -11,8 +12,10 @@ public class DoublyLinkedList<T> {
 		last = null;
 		size = 0;
 	}
+
 	/**
 	 * Metodo que permite agregar un nodo al principio de la lista
+	 * 
 	 * @param element del nodo
 	 */
 	public void addFirst(T element) {
@@ -27,22 +30,23 @@ public class DoublyLinkedList<T> {
 		}
 		size++;
 	}
+
 	/**
 	 * Metodo que permite agregar un nodo al final de la lista
+	 * 
 	 * @param element del nodo
-	 * @throws IndexOutOfBoundsException
+	 * @throws BigIndexException
 	 */
-	public void addLast(T element) throws IndexOutOfBoundsException {
+	public void addLast(T element) throws BigIndexException {
 		Node<T> newNode = new Node<T>(element);
 		if (isEmpty()) {
 			newNode.connectNode(null, 1);
 			first = newNode;
 			last = newNode;
 		} else {
-			if(last == null)
-			{
+			if (last == null) {
 				Node<T> current = first;
-				while(current.followLink(1)!=null)
+				while (current.followLink(1) != null)
 					current = current.followLink(1);
 				last = current;
 			}
@@ -53,13 +57,14 @@ public class DoublyLinkedList<T> {
 		}
 		size++;
 	}
+
 	/**
 	 * Metodo que permite remover el primer elemento de la lista
+	 * 
 	 * @return el valor del nodo
-	 * @throws RuntimeException
 	 * @throws IndexOutOfBoundsException
 	 */
-	public T removeFirst() throws RuntimeException, IndexOutOfBoundsException {
+	public T removeFirst() throws BigIndexException {
 		if (isEmpty())
 			throw new RuntimeException("The list is empty");
 		T data = first.getValue();
@@ -67,13 +72,14 @@ public class DoublyLinkedList<T> {
 			first = last = null;
 		else {
 			first = first.followLink(1);
-			first.connectNode(null, 0);;
+			first.connectNode(null, 0);
+			;
 		}
 		size--;
 		return data;
 	}
 
-	public T removeLast() throws RuntimeException, IndexOutOfBoundsException {
+	public T removeLast() throws BigIndexException {
 		if (isEmpty())
 			throw new RuntimeException("The list is empty");
 		T data = last.getValue();
@@ -125,20 +131,19 @@ public class DoublyLinkedList<T> {
 		int counter = 0;
 		while (counter < size) {
 			info += current.toString() + ",";
-			if(current.getSizelinks()==1)
+			if (current.getSizelinks() == 1)
 				try {
 					current = current.followLink(0);
-				} catch (IndexOutOfBoundsException e) {
+				} catch (BigIndexException e) {
 					e.printStackTrace();
 				}
 			else
 				try {
 					current = current.followLink(1);
-				} catch (IndexOutOfBoundsException e) {
+				} catch (BigIndexException e) {
 					e.printStackTrace();
 				}
-				
-			
+
 			counter++;
 		}
 		info = info.substring(0, info.length() - 1);

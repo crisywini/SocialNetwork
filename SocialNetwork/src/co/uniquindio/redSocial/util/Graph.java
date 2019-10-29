@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import co.uniquindio.redSocial.exceptions.BigIndexException;
 import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
 import co.uniquindio.redSocial.exceptions.NodeGraphWithLinksException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
@@ -150,8 +151,9 @@ public class Graph<T> implements Serializable {
 	 * @param index del enlace
 	 * @return el nodo segun el indice
 	 * @throws NodeGraphNullException si el nodo no existe
+	 * @throws BigIndexException
 	 */
-	public Node<T> followLink(String name, int index) throws NodeGraphNullException {
+	public Node<T> followLink(String name, int index) throws NodeGraphNullException, BigIndexException {
 		if (!isOnGraph(name))
 			throw new NodeGraphNullException("El nodo: " + name + " no se encuentra en el grafo");
 		return graph.get(name).followLink(index);

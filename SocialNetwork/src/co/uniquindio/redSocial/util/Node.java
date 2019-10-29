@@ -97,11 +97,11 @@ public class Node<T> {
 	 * @param index que permite verificar si
 	 * @return un booleano con la verificacion si existe o no la conexion entre los
 	 *         nodos
-	 * @throws IndexOutOfBoundsException si el index esta fuera de limites
+	 * @throws BigIndexException si el indice sobre pasa los limites
 	 */
-	public boolean isConnected(int index) throws IndexOutOfBoundsException {
+	public boolean isConnected(int index) throws BigIndexException {
 		if (index >= getSizelinks() || index < 0)
-			throw new IndexOutOfBoundsException("The index: " + index + " is out of bounds");
+			throw new BigIndexException("The index: " + index + " is out of bounds");
 		return links.get(index) != null;
 	}
 
@@ -110,11 +110,11 @@ public class Node<T> {
 	 * 
 	 * @param index que permite seguir el enlace
 	 * @return un node en el enlace
-	 * @throws IndexOutOfBoundsException si el indice sobre pasa limites
+	 * @throws BigIndexException si el indice sobre pasa los limites
 	 */
-	public Node<T> followLink(int index) throws IndexOutOfBoundsException {
+	public Node<T> followLink(int index) throws BigIndexException {
 		if (index >= getSizelinks() || index < 0)
-			throw new IndexOutOfBoundsException("The index: " + index + " is out of bounds");
+			throw new BigIndexException("The index: " + index + " is out of bounds");
 		return links.get(index);
 	}
 

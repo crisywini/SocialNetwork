@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import co.uniquindio.redSocial.util.DoublyLinkedList;
 
-public class User implements Serializable{
+public class User implements Serializable {
 	/**
 	 * 
 	 */
@@ -17,7 +17,8 @@ public class User implements Serializable{
 	private String password;
 	private String image;
 	private DoublyLinkedList<User> friends;
-	
+	private Wall myWall;
+
 	/**
 	 * Metodo constructor de la clase user
 	 * 
@@ -38,6 +39,7 @@ public class User implements Serializable{
 		this.password = password;
 		this.image = image;
 		friends = new DoublyLinkedList<User>();
+		myWall = new Wall(this);
 	}
 
 	/**
@@ -111,4 +113,11 @@ public class User implements Serializable{
 		this.friends = friends;
 	}
 
+	public Wall getMyWall() {
+		return myWall;
+	}
+
+	public void setMyWall(Wall myWall) {
+		this.myWall = myWall;
+	}
 }

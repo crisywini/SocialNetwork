@@ -1,5 +1,6 @@
 package co.uniquindio.redSocial.util;
 
+import co.uniquindio.redSocial.exceptions.BigIndexException;
 import co.uniquindio.redSocial.exceptions.EmptyLinkedListException;
 
 public class Stack<T> {
@@ -25,10 +26,10 @@ public class Stack<T> {
 	 * Metodo que permite eliminar un elemento de la pila
 	 * 
 	 * @return la informacion del elemento eliminado
-	 * @throws RuntimeException
-	 * @throws IndexOutOfBoundsException
+	 * @throws EmptyLinkedListException
+	 * @throws BigIndexException 
 	 */
-	public T pop() throws RuntimeException, IndexOutOfBoundsException {
+	public T pop() throws EmptyLinkedListException, BigIndexException {
 		return linkedList.removeFirst();
 	}
 
@@ -58,10 +59,10 @@ public class Stack<T> {
 	 * 
 	 * @param element
 	 * @return
-	 * @throws IndexOutOfBoundsException
 	 * @throws EmptyLinkedListException
+	 * @throws BigIndexException
 	 */
-	public boolean contains(Node<T> element) throws IndexOutOfBoundsException, EmptyLinkedListException {
+	public boolean contains(Node<T> element) throws BigIndexException {
 		Node<T> auxiliar = peek();
 		boolean contains = false;
 		while (auxiliar != null) {

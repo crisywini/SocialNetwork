@@ -1,6 +1,12 @@
 package co.uniquindio.redSocial.model;
 
-public class Like {
+import java.io.Serializable;
+
+public class Like implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;// Verificar
 	private User userAssociated;
 
@@ -36,6 +42,16 @@ public class Like {
 
 	public void setUserAssociated(User userAssociated) {
 		this.userAssociated = userAssociated;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Like) {
+			Like like = (Like) obj;
+			if (like.getUserAssociated().getId().equals(userAssociated.getId()))
+				return true;
+		}
+		return false;
 	}
 
 	@Override

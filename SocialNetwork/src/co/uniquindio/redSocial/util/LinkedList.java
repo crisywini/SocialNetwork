@@ -1,5 +1,6 @@
 package co.uniquindio.redSocial.util;
 
+import co.uniquindio.redSocial.exceptions.BigIndexException;
 import co.uniquindio.redSocial.exceptions.EmptyLinkedListException;
 
 public class LinkedList<T> {
@@ -29,6 +30,11 @@ public class LinkedList<T> {
 		size++;
 	}
 
+	/**
+	 * Metodo que permite agregar un nodo al final de la lista
+	 * 
+	 * @param element
+	 */
 	public void addLast(T element) {
 		if (isEmpty()) {
 			first = last = new Node<T>(element);
@@ -40,9 +46,16 @@ public class LinkedList<T> {
 		size++;
 	}
 
-	public T removeFirst() throws RuntimeException, IndexOutOfBoundsException {
+	/**
+	 * Metodo que permite eliminar el primer nodo de la lista
+	 * 
+	 * @return la informacion del nodo
+	 * @throws EmptyLinkedListException
+	 * @throws BigIndexException 
+	 */
+	public T removeFirst() throws EmptyLinkedListException, BigIndexException {
 		if (isEmpty())
-			throw new RuntimeException("The list is empty");
+			throw new EmptyLinkedListException("The list is empty");
 		T data = first.getValue();
 		if (first == last)
 			first = last = null;
@@ -52,9 +65,9 @@ public class LinkedList<T> {
 		return data;
 	}
 
-	public T removeLast() throws RuntimeException, IndexOutOfBoundsException {
+	public T removeLast() throws EmptyLinkedListException, BigIndexException {
 		if (isEmpty())
-			throw new RuntimeException("The list is empty");
+			throw new EmptyLinkedListException("The list is empty");
 		T data = last.getValue();
 		if (last == first)
 			first = last = null;
@@ -98,7 +111,7 @@ public class LinkedList<T> {
 		this.size = size;
 	}
 
-	public Node<T> followLink() throws EmptyLinkedListException, IndexOutOfBoundsException {
+	public Node<T> followLink() throws EmptyLinkedListException, BigIndexException {
 		if (isEmpty())
 			throw new EmptyLinkedListException("The linked list is empty");
 		return first.followLink(0);
@@ -118,7 +131,7 @@ public class LinkedList<T> {
 				else
 					try {
 						current = current.followLink(0);
-					} catch (IndexOutOfBoundsException e) {
+					} catch (BigIndexException e) {
 						e.printStackTrace();
 					}
 			}
