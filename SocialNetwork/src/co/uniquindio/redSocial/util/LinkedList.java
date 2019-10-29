@@ -1,7 +1,7 @@
-package csp.util;
+package co.uniquindio.redSocial.util;
 
-import csp.exceptions.EmptyLinkedListException;
-import csp.exceptions.IndexOutOfBoundsException;
+import co.uniquindio.redSocial.exceptions.EmptyLinkedListException;
+import co.uniquindio.redSocial.exceptions.IndexOutOfBoundsException;
 
 public class LinkedList<T> {
 	private Node<T> first;

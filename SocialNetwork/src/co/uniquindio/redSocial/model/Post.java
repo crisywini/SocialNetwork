@@ -1,14 +1,8 @@
-package csp.model;
+package co.uniquindio.redSocial.model;
 
 import java.io.Serializable;
 
-import csp.exceptions.EmptyLinkedListException;
-import csp.exceptions.IndexOutOfBoundsException;
-import csp.exceptions.LikeNullException;
-import csp.util.Date;
-import csp.util.Node;
-import csp.util.Queue;
-import csp.util.Stack;
+import co.uniquindio.redSocial.util.*;
 
 public class Post implements Serializable {
 	/**
@@ -20,7 +14,6 @@ public class Post implements Serializable {
 	private Stack<Like> likes;
 	private Stack<Love> loves;
 	private Date datePost;
-	
 	private User userAssociated;
 
 	/**

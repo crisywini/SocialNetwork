@@ -1,4 +1,4 @@
-package csp.util;
+package co.uniquindio.redSocial.util;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;

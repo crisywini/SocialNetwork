@@ -1,6 +1,8 @@
-package csp.model;
+package co.uniquindio.redSocial.model;
 
 import java.io.Serializable;
+
+import co.uniquindio.redSocial.util.DoublyLinkedList;
 
 public class User implements Serializable{
 	/**
@@ -14,7 +16,8 @@ public class User implements Serializable{
 	private String email;
 	private String password;
 	private String image;
-
+	private DoublyLinkedList<User> friends;
+	
 	/**
 	 * Metodo constructor de la clase user
 	 * 
@@ -34,6 +37,7 @@ public class User implements Serializable{
 		this.email = email;
 		this.password = password;
 		this.image = image;
+		friends = new DoublyLinkedList<User>();
 	}
 
 	/**
@@ -97,6 +101,14 @@ public class User implements Serializable{
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public DoublyLinkedList<User> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(DoublyLinkedList<User> friends) {
+		this.friends = friends;
 	}
 
 }

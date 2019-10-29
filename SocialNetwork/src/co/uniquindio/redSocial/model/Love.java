@@ -1,40 +1,32 @@
-package csp.model;
+package co.uniquindio.redSocial.model;
 
-public class Like {
-
-	private String id;// Verificar
+public class Love {
+	private String id;
 	private User userAssociated;
-
 	/**
-	 * Metodo constructor de la clase Like
-	 * 
-	 * @param userAssociated usuario quien dio like
+	 * Metodo constructor con parametros de la clase Love
+	 * @param userAssociated usuario quien le dio love a algo
 	 */
-	public Like(User userAssociated) {
+	public Love(User userAssociated) {
 		this.userAssociated = userAssociated;
-		id = "!!";
+		id = "<3";
 	}
-
 	/**
-	 * Metodo constructor sin parametros de la clase user
+	 * Metodo constructor vacio de la clase Love
 	 */
-	public Like() {
+	public Love() {
 		this(new User());
-		id = "!!*";
+		id = "<3*";
 	}
-
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public User getUserAssociated() {
 		return userAssociated;
 	}
-
 	public void setUserAssociated(User userAssociated) {
 		this.userAssociated = userAssociated;
 	}

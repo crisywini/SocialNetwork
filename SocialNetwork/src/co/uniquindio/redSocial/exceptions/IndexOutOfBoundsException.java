@@ -1,4 +1,4 @@
-package csp.exceptions;
+package co.uniquindio.redSocial.exceptions;
 
 import java.io.Serializable;
 

@@ -1,8 +1,8 @@
-package csp.util;
+package co.uniquindio.redSocial.util;
 
 import java.util.ArrayList;
 
-import csp.exceptions.IndexOutOfBoundsException;
+import co.uniquindio.redSocial.exceptions.IndexOutOfBoundsException;
 
 public class Node<T> {
 	private T value;

@@ -1,4 +1,4 @@
-package csp.controller;
+package co.uniquindio.redSocial.controller;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;

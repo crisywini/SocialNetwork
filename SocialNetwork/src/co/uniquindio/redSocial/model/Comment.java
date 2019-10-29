@@ -1,7 +1,6 @@
-package csp.model;
+package co.uniquindio.redSocial.model;
 
-import csp.util.Queue;
-import csp.util.Stack;
+import co.uniquindio.redSocial.util.*;
 
 public class Comment {
 	private String message;

@@ -1,4 +1,4 @@
-package csp.exceptions;
+package co.uniquindio.redSocial.exceptions;
 
 public class LikeNullException extends Exception{
 
