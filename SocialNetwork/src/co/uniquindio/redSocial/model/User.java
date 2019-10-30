@@ -174,4 +174,5 @@ public class User implements Serializable {
 		blockedFriends.addFirst(blockFriend);
 		friends.disconnect(nick_name, blockFriend.getNick_name());
 	}
+	
 }

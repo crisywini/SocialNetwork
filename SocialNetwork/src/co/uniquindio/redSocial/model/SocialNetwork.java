@@ -4,6 +4,13 @@ import java.io.Serializable;
 
 import co.uniquindio.redSocial.util.Graph;
 
+/**
+ * Clase principal de la logica
+ * 
+ * @author Lissette Quebrada Lancheros, Luisa Fernanda Cotte Sanchez, 
+ *         Cristian Giovanny Sanchez Pineda
+ *
+ */
 public class SocialNetwork implements Serializable {
 	/**
 	 * 
