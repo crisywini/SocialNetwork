@@ -2,8 +2,15 @@ package co.uniquindio.redSocial.model;
 
 import java.io.Serializable;
 
+import co.uniquindio.redSocial.exceptions.BigIndexException;
+import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
+import co.uniquindio.redSocial.exceptions.NodeNotConnectedException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
 import co.uniquindio.redSocial.util.Graph;
+import co.uniquindio.redSocial.util.LinkedList;
+import co.uniquindio.redSocial.util.Stack;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class User implements Serializable {
 	/**
@@ -19,6 +26,8 @@ public class User implements Serializable {
 	private String image;
 	private Graph<User> friends;
 	private Wall myWall;
+	private LinkedList<User> blockedFriends;
+	private Stack<Mail> mails;
 
 	/**
 	 * Metodo constructor de la clase user
@@ -52,6 +61,10 @@ public class User implements Serializable {
 
 	public String getId() {
 		return id;
+	}
+
+	public StringProperty idProperty() {
+		return new SimpleStringProperty(id);
 	}
 
 	public void setId(String id) {
@@ -121,17 +134,44 @@ public class User implements Serializable {
 	public void setFriends(Graph<User> friends) {
 		this.friends = friends;
 	}
+
+	public LinkedList<User> getBlockedFriends() {
+		return blockedFriends;
+	}
+
+	public void setBlockedFriends(LinkedList<User> blockedFriends) {
+		this.blockedFriends = blockedFriends;
+	}
+
+	public Stack<Mail> getMails() {
+		return mails;
+	}
+
+	public void setMails(Stack<Mail> mails) {
+		this.mails = mails;
+	}
+
 	/**
 	 * Metodo que permite agregar un amigo
+	 * 
 	 * @param newFriend
 	 * @throws NodeRepeatException
 	 */
 	public void addFriend(User newFriend) throws NodeRepeatException {
-		getFriends().addNode(newFriend.id, newFriend);
+		getFriends().addNode(newFriend.getNick_name(), newFriend);
 	}
-	
+
+	/**
+	 * Metodo que permite bloquear un amigo
+	 * 
+	 * @param blockFriend amigo a ser bloqueado
+	 * @throws BigIndexException         de la clase nodo
+	 * @throws NodeNotConnectedException de la clase nodo
+	 * @throws NodeGraphNullException    de la clase grafo
+	 */
 	public void blockFriend(User blockFriend)
-	{
-		
+			throws NodeGraphNullException, NodeNotConnectedException, BigIndexException {
+		blockedFriends.addFirst(blockFriend);
+		friends.disconnect(nick_name, blockFriend.getNick_name());
 	}
 }

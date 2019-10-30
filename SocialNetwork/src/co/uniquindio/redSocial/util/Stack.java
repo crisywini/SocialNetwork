@@ -27,7 +27,7 @@ public class Stack<T> {
 	 * 
 	 * @return la informacion del elemento eliminado
 	 * @throws EmptyLinkedListException
-	 * @throws BigIndexException 
+	 * @throws BigIndexException
 	 */
 	public T pop() throws EmptyLinkedListException, BigIndexException {
 		return linkedList.removeFirst();
@@ -46,11 +46,12 @@ public class Stack<T> {
 	 * Metodo que permite obtener el primer elemento de la pila
 	 * 
 	 * @return el primer elemento de la lista
+	 * @throws EmptyLinkedListException
 	 * @throws RuntimeException
 	 */
-	public Node<T> peek() throws RuntimeException {
+	public Node<T> peek() throws EmptyLinkedListException {
 		if (isEmpty())
-			throw new RuntimeException("The list is empty");
+			throw new EmptyLinkedListException("La pila esta vacia");
 		return linkedList.getFirst();
 	}
 
@@ -62,7 +63,7 @@ public class Stack<T> {
 	 * @throws EmptyLinkedListException
 	 * @throws BigIndexException
 	 */
-	public boolean contains(Node<T> element) throws BigIndexException {
+	public boolean contains(Node<T> element) throws BigIndexException, EmptyLinkedListException {
 		Node<T> auxiliar = peek();
 		boolean contains = false;
 		while (auxiliar != null) {

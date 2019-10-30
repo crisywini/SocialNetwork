@@ -18,7 +18,7 @@ public class Queue<T> {
 		return linkedList.removeFirst();
 	}
 
-	public Node<T> peek() throws RuntimeException {
+	public Node<T> peek() {
 		return linkedList.getFirst();
 	}
 

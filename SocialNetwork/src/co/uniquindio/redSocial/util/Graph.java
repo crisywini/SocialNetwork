@@ -8,6 +8,7 @@ import java.util.Iterator;
 import co.uniquindio.redSocial.exceptions.BigIndexException;
 import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
 import co.uniquindio.redSocial.exceptions.NodeGraphWithLinksException;
+import co.uniquindio.redSocial.exceptions.NodeNotConnectedException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
 
 public class Graph<T> implements Serializable {
@@ -97,6 +98,26 @@ public class Graph<T> implements Serializable {
 			throw new NodeGraphWithLinksException(
 					"El nodo: " + name + " no puede ser eliminado ya que tiene mas conexiones");
 		return graph.remove(name);
+	}
+	/**
+	 * Metodo que permite desconectar un nodo con otro
+	 * @param originName nodo que quiere ser desconectado
+	 * @param destinyName nodo que se quiere desconectar
+	 * @throws NodeGraphNullException 
+	 * @throws NodeNotConnectedException
+	 * @throws BigIndexException
+	 */
+	public void disconnect(String originName, String destinyName)
+			throws NodeGraphNullException, NodeNotConnectedException, BigIndexException {
+		if (!isOnGraph(originName) || !isOnGraph(destinyName))
+			throw new NodeGraphNullException(
+					"El nodo: " + originName + " o el nodo: " + destinyName + " no se encuentran en el grafo");
+		Node<T> auxiliarOrgin = graph.get(originName);
+		Node<T> auxiliarDestiny = graph.get(destinyName);
+		int destinyIndex = auxiliarOrgin.getIndex(auxiliarDestiny);
+		if (destinyIndex == -1)
+			throw new NodeNotConnectedException("El nodo: " + destinyName + " no esta conectado con: " + originName);
+		auxiliarOrgin.disconnect(destinyIndex);
 	}
 
 	/**

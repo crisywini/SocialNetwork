@@ -119,6 +119,27 @@ public class Node<T> {
 	}
 
 	/**
+	 * Metodo que permite obtener el indice de un nodo en el {@link ArrayList} de
+	 * nodos
+	 * 
+	 * @param node a buscar
+	 * @return -1 si no lo encuentra o >=0 si lo encuentra
+	 */
+	public int getIndex(Node<T> node) {
+		int index = -1;
+		boolean isOnLinks = false;
+		Node<T> auxiliar;
+		for (int i = 0; i < links.size() && !isOnLinks; i++) {
+			auxiliar = links.get(i);
+			if (auxiliar.equals(node)) {
+				index = i;
+				isOnLinks = true;
+			}
+		}
+		return index;
+	}
+
+	/**
 	 * Metodo toString de la clase Node
 	 */
 	@Override
