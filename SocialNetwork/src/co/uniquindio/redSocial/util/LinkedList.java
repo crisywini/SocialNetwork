@@ -82,19 +82,19 @@ public class LinkedList<T> {
 		size--;
 		return data;
 	}
+
 	/**
 	 * Metodo que permite verificar si existe un elemento en la lista
+	 * 
 	 * @param value
 	 * @return
 	 * @throws BigIndexException
 	 */
-	public boolean isOnList(T value) throws BigIndexException
-	{
+	public boolean isOnList(T value) throws BigIndexException {
 		boolean exist = false;
 		Node<T> auxiliar = getFirst();
-		while(auxiliar != null&&!exist)
-		{
-			if(auxiliar.getValue().equals(value))
+		while (auxiliar != null && !exist) {
+			if (auxiliar.getValue().equals(value))
 				exist = true;
 			auxiliar = auxiliar.followLink(0);
 		}
@@ -151,5 +151,4 @@ public class LinkedList<T> {
 		}
 		return info;
 	}
-
 }

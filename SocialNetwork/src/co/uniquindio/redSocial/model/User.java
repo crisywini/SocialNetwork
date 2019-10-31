@@ -3,11 +3,14 @@ package co.uniquindio.redSocial.model;
 import java.io.Serializable;
 
 import co.uniquindio.redSocial.exceptions.BigIndexException;
+import co.uniquindio.redSocial.exceptions.BlockedFriendException;
 import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
 import co.uniquindio.redSocial.exceptions.NodeNotConnectedException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
+import co.uniquindio.redSocial.exceptions.NotFriendsException;
 import co.uniquindio.redSocial.util.Graph;
 import co.uniquindio.redSocial.util.LinkedList;
+import co.uniquindio.redSocial.util.Node;
 import co.uniquindio.redSocial.util.Stack;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -174,5 +177,69 @@ public class User implements Serializable {
 		blockedFriends.addFirst(blockFriend);
 		friends.disconnect(nick_name, blockFriend.getNick_name());
 	}
-	
+
+	/**
+	 * Metodo que permite enviar un mensaje a un amigo
+	 * 
+	 * @param friend  receptor
+	 * @param message contenido del mail
+	 * @throws NotFriendsException    si no son amigos
+	 * @throws BlockedFriendException si esta bloqueado el amigo
+	 * @throws BigIndexException      de la clase LinkedList
+	 */
+	public void sendMessage(User friend, String message)
+			throws NotFriendsException, BlockedFriendException, BigIndexException {
+		if (!friends.isOnGraph(friend.getNick_name()))
+			throw new NotFriendsException("La persona: " + friend.getNick_name() + " y tu no son amigos");
+		if (blockedFriends.isOnList(friend))
+			throw new BlockedFriendException("La persona: " + friend.getNick_name() + " esta bloqueada");
+		Mail newMail = new Mail(message, this, friend);
+		this.mails.push(newMail);
+		friend.mails.push(newMail);
+	}
+
+	/**
+	 * Metodo que envía mensaje a mas de un amigo
+	 * 
+	 * @param receivers listado de amigos a enviar el mensaje
+	 * @param message   contenido
+	 * @throws NotFriendsException    si no son amigos
+	 * @throws BigIndexException      es de la clase LinkedList
+	 * @throws BlockedFriendException si esta bloqueado
+	 */
+	public void sendMessage(LinkedList<User> receivers, String message)
+			throws NotFriendsException, BigIndexException, BlockedFriendException {
+
+		Node<User> nodeUserAuxiliar = receivers.getFirst();
+		User auxiliar = nodeUserAuxiliar.getValue();
+
+		while (nodeUserAuxiliar != null) {
+			if (!friends.isOnGraph(auxiliar.getNick_name())) {
+				throw new NotFriendsException("La persona: " + auxiliar.getNick_name() + " y tu no son amigos");
+			}
+			if (blockedFriends.isOnList(auxiliar)) {
+				throw new BlockedFriendException("La persona: " + auxiliar.getNick_name() + " esta bloqueada");
+			}
+
+			Mail newMail = new Mail(message, this, auxiliar);
+			this.mails.push(newMail);
+			auxiliar.mails.push(newMail);
+			nodeUserAuxiliar = nodeUserAuxiliar.followLink(0);
+			auxiliar = nodeUserAuxiliar.getValue();
+		}
+
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean isEquals = false;
+		User auxiliar;
+		if (obj instanceof User) {
+			auxiliar = (User) obj;
+			if (auxiliar.getId().equals(this.getId()))
+				isEquals = true;
+		}
+		return isEquals;
+	}
+
 }
