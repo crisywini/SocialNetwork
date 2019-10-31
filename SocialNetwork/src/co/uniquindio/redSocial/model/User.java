@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import co.uniquindio.redSocial.exceptions.BigIndexException;
 import co.uniquindio.redSocial.exceptions.BlockedFriendException;
+import co.uniquindio.redSocial.exceptions.MaxNumberFriendsException;
 import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
 import co.uniquindio.redSocial.exceptions.NodeNotConnectedException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
@@ -32,6 +33,8 @@ public class User implements Serializable {
 	private Wall myWall;
 	private LinkedList<User> blockedFriends;
 	private Stack<Mail> mails;
+	private LinkedList<User> friendsRequest;
+	public static final int MAX_FRIENDS = 100;
 
 	/**
 	 * Metodo constructor de la clase user
@@ -54,6 +57,7 @@ public class User implements Serializable {
 		this.image = image;
 		setFriends(new Graph<User>());
 		myWall = new Wall(this);
+		friendsRequest = new LinkedList<User>();
 	}
 
 	/**
@@ -158,11 +162,33 @@ public class User implements Serializable {
 	/**
 	 * Metodo que permite agregar un amigo
 	 * 
-	 * @param newFriend
-	 * @throws NodeRepeatException
+	 * @param newFriend nuevo amigo
+	 * @throws NodeRepeatException	de la clase nodo
+	 * @throws MaxNumberFriendsException si supera la cantidad de amigos predicha
 	 */
-	public void addFriend(User newFriend) throws NodeRepeatException {
-		getFriends().addNode(newFriend.getNick_name(), newFriend);
+	public void addFriend(User newFriend) throws NodeRepeatException, MaxNumberFriendsException {
+		if(getFriends().getGraph().size()<MAX_FRIENDS)
+			getFriends().addNode(newFriend.getNick_name(), newFriend);
+		else
+			throw new MaxNumberFriendsException("Superas la cantidad de amigos, no puedes tener mas!");
+			
+	}
+
+	/**
+	 * Metodo para aceptar una solicitud de amistad
+	 * 
+	 * @param friend amigo solicitante
+	 * @throws BigIndexException   de la clase nodo
+	 * @throws NodeRepeatException de la clase LinkedList
+	 * @throws NotFriendsException si no tienes solicitud de amistad de ese amigo
+	 */
+	public void acceptRequest(User friend) throws BigIndexException, NodeRepeatException, NotFriendsException {
+		if (friendsRequest.isOnList(friend)) {
+			friends.addNode(friend.getNick_name(), friend);
+			friendsRequest.remove(friend);
+		} else {
+			throw new NotFriendsException("No tienes una solicitud de amistad de: " + friend.getNick_name());
+		}
 	}
 
 	/**
@@ -178,21 +204,23 @@ public class User implements Serializable {
 		blockedFriends.addFirst(blockFriend);
 		friends.disconnect(nick_name, blockFriend.getNick_name());
 	}
-	
+
 	/**
 	 * Metodo que permite desbloquear un amigo bloqueado
+	 * 
 	 * @param friend amigo a ser desbloqueado
-	 * @throws BigIndexException	de la clase nodo
-	 * @throws NodeRepeatException 	de la clase {@link LinkedList}
-	 * @throws UnblockedFriendException si la persona no se encuentra en la lista de amigos bloqueados
+	 * @throws BigIndexException        de la clase nodo
+	 * @throws NodeRepeatException      de la clase {@link LinkedList}
+	 * @throws UnblockedFriendException si la persona no se encuentra en la lista de
+	 *                                  amigos bloqueados
 	 */
-	public void unblockFriend (User friend) throws BigIndexException, NodeRepeatException, UnblockedFriendException {
+	public void unblockFriend(User friend) throws BigIndexException, NodeRepeatException, UnblockedFriendException {
 		if (blockedFriends.isOnList(friend)) {
 			blockedFriends.remove(friend);
 			friends.addNode(friend.getNick_name(), friend);
-		}
-		else throw new UnblockedFriendException("No tienes el usuario: " + friend.getNick_name() + " bloqueado!");
-			
+		} else
+			throw new UnblockedFriendException("No tienes el usuario: " + friend.getNick_name() + " bloqueado!");
+
 	}
 
 	/**
@@ -246,7 +274,6 @@ public class User implements Serializable {
 		}
 
 	}
-	
 
 	@Override
 	public boolean equals(Object obj) {
