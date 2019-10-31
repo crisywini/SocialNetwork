@@ -88,7 +88,7 @@ public class Post implements Serializable {
 	}
 
 	/**
-	 * Metodo que le permite a un usuario dar like
+	 * Metodo que le permite a un usuario dar like corregir
 	 * 
 	 * @param liker usuario que da like
 	 * @throws EmptyLinkedListException de la clase {@link LinkedList}
