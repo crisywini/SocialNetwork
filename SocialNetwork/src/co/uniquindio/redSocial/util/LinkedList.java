@@ -51,7 +51,7 @@ public class LinkedList<T> {
 	 * 
 	 * @return la informacion del nodo
 	 * @throws EmptyLinkedListException
-	 * @throws BigIndexException 
+	 * @throws BigIndexException
 	 */
 	public T removeFirst() throws EmptyLinkedListException, BigIndexException {
 		if (isEmpty())
@@ -82,6 +82,24 @@ public class LinkedList<T> {
 		size--;
 		return data;
 	}
+	/**
+	 * Metodo que permite verificar si existe un elemento en la lista
+	 * @param value
+	 * @return
+	 * @throws BigIndexException
+	 */
+	public boolean isOnList(T value) throws BigIndexException
+	{
+		boolean exist = false;
+		Node<T> auxiliar = getFirst();
+		while(auxiliar != null&&!exist)
+		{
+			if(auxiliar.getValue().equals(value))
+				exist = true;
+			auxiliar = auxiliar.followLink(0);
+		}
+		return exist;
+	}
 
 	public boolean isEmpty() {
 		return first == null;
@@ -109,12 +127,6 @@ public class LinkedList<T> {
 
 	public void setSize(int size) {
 		this.size = size;
-	}
-
-	public Node<T> followLink() throws EmptyLinkedListException, BigIndexException {
-		if (isEmpty())
-			throw new EmptyLinkedListException("The linked list is empty");
-		return first.followLink(0);
 	}
 
 	@Override
