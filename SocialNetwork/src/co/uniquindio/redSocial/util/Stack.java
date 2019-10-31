@@ -58,25 +58,21 @@ public class Stack<T> {
 	/**
 	 * Metodo que permite verificar si un nodo esta en la pila
 	 * 
-	 * @param element
-	 * @return
-	 * @throws EmptyLinkedListException
-	 * @throws BigIndexException
+	 * @param element valor que se quiere buscar en la pila
+	 * @return un booleano el que verifica si existe o no el elemento en la lista
+	 * @throws EmptyLinkedListException si la lista esta vacia
+	 * @throws BigIndexException        de la la clase {@link LinkedList}
 	 */
-	public boolean contains(Node<T> element) throws BigIndexException, EmptyLinkedListException {
+	public boolean contains(T element) throws BigIndexException, EmptyLinkedListException {
 		Node<T> auxiliar = peek();
 		boolean contains = false;
-		while (auxiliar != null) {
-			if (auxiliar.getSizelinks() == 0)
-				auxiliar = null;
+		while (auxiliar != null && !contains) {
+			if (auxiliar.getValue().equals(element))
+				contains = true;
+			if (auxiliar.getLinks().size() != 0)
+				auxiliar = auxiliar.followLink(0);
 			else
-				try {
-					auxiliar = auxiliar.followLink(0);
-					if (auxiliar.equals(element))
-						contains = true;
-				} catch (IndexOutOfBoundsException e) {
-					e.printStackTrace();
-				}
+				break;
 		}
 		return contains;
 	}

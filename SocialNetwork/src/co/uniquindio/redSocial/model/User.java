@@ -234,6 +234,7 @@ public class User implements Serializable {
 		}
 
 	}
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -241,7 +242,7 @@ public class User implements Serializable {
 		User auxiliar;
 		if (obj instanceof User) {
 			auxiliar = (User) obj;
-			if (auxiliar.getId().equals(this.getId()))
+			if (auxiliar.getId().equals(this.getId()) && auxiliar.getNick_name().equals(this.getNick_name()))
 				isEquals = true;
 		}
 		return isEquals;
