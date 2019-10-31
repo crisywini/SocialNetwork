@@ -177,6 +177,11 @@ public class User implements Serializable {
 		blockedFriends.addFirst(blockFriend);
 		friends.disconnect(nick_name, blockFriend.getNick_name());
 	}
+	
+	public void unblockFriend (User friend) throws BigIndexException, NodeRepeatException {
+		blockedFriends.remove(friend);
+		friends.addNode(friend.getNick_name(), friend);
+	}
 
 	/**
 	 * Metodo que permite enviar un mensaje a un amigo
