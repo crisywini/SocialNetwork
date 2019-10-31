@@ -8,6 +8,7 @@ import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
 import co.uniquindio.redSocial.exceptions.NodeNotConnectedException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
 import co.uniquindio.redSocial.exceptions.NotFriendsException;
+import co.uniquindio.redSocial.exceptions.UnblockedFriendException;
 import co.uniquindio.redSocial.util.Graph;
 import co.uniquindio.redSocial.util.LinkedList;
 import co.uniquindio.redSocial.util.Node;
@@ -178,9 +179,20 @@ public class User implements Serializable {
 		friends.disconnect(nick_name, blockFriend.getNick_name());
 	}
 	
-	public void unblockFriend (User friend) throws BigIndexException, NodeRepeatException {
-		blockedFriends.remove(friend);
-		friends.addNode(friend.getNick_name(), friend);
+	/**
+	 * Metodo que permite desbloquear un amigo bloqueado
+	 * @param friend amigo a ser desbloqueado
+	 * @throws BigIndexException	de la clase nodo
+	 * @throws NodeRepeatException 	de la clase {@link LinkedList}
+	 * @throws UnblockedFriendException si la persona no se encuentra en la lista de amigos bloqueados
+	 */
+	public void unblockFriend (User friend) throws BigIndexException, NodeRepeatException, UnblockedFriendException {
+		if (blockedFriends.isOnList(friend)) {
+			blockedFriends.remove(friend);
+			friends.addNode(friend.getNick_name(), friend);
+		}
+		else throw new UnblockedFriendException("No tienes el usuario: " + friend.getNick_name() + " bloqueado!");
+			
 	}
 
 	/**
