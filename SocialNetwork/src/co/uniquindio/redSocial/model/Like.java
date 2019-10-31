@@ -48,7 +48,7 @@ public class Like implements Serializable {
 	public boolean equals(Object obj) {
 		if (obj instanceof Like) {
 			Like like = (Like) obj;
-			if (like.getUserAssociated().getId().equals(userAssociated.getId()))
+			if (like.getUserAssociated().getNick_name().equals(userAssociated.getNick_name()))
 				return true;
 		}
 		return false;

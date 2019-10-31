@@ -50,4 +50,15 @@ public class Love implements Serializable {
 		return info;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		boolean isEquals = false;
+		Love auxiliar;
+		if (obj instanceof Love) {
+			auxiliar = (Love) obj;
+			if (auxiliar.getUserAssociated().getNick_name().equals(this.getUserAssociated().getNick_name()))
+				isEquals = true;
+		}
+		return isEquals;
+	}
 }

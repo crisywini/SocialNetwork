@@ -2,6 +2,8 @@ package co.uniquindio.redSocial.model;
 
 import java.io.Serializable;
 
+import co.uniquindio.redSocial.exceptions.BigIndexException;
+import co.uniquindio.redSocial.exceptions.EmptyLinkedListException;
 import co.uniquindio.redSocial.util.*;
 
 public class Post implements Serializable {
@@ -84,13 +86,22 @@ public class Post implements Serializable {
 	public void setLoves(Stack<Love> loves) {
 		this.loves = loves;
 	}
+
 	/**
 	 * Metodo que le permite a un usuario dar like
-	 * @param liker
+	 * 
+	 * @param liker usuario que da like
+	 * @throws EmptyLinkedListException de la clase {@link LinkedList}
+	 * @throws BigIndexException        de la clase {@link Node}
 	 */
-	public void giveALike(User liker) {
-		Like like = new Like(userAssociated);
-		likes.push(like);
+	public void giveALike(User liker) throws BigIndexException, EmptyLinkedListException {
+		Like newLike = new Like(liker);
+		if (likes.contains(newLike)) {
+			Love newLove = new Love(liker);
+			if (!loves.contains(newLove))
+				loves.push(newLove);
+		} else
+			likes.push(newLike);
 	}
 
 	@Override
