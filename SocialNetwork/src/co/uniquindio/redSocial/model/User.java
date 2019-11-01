@@ -2,32 +2,18 @@ package co.uniquindio.redSocial.model;
 
 import java.io.Serializable;
 
-import co.uniquindio.redSocial.exceptions.BigIndexException;
-import co.uniquindio.redSocial.exceptions.BlockedFriendException;
-import co.uniquindio.redSocial.exceptions.MaxNumberFriendsException;
-import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
-import co.uniquindio.redSocial.exceptions.NodeNotConnectedException;
-import co.uniquindio.redSocial.exceptions.NodeRepeatException;
-import co.uniquindio.redSocial.exceptions.NotFriendsException;
-import co.uniquindio.redSocial.exceptions.UnblockedFriendException;
-import co.uniquindio.redSocial.util.Graph;
-import co.uniquindio.redSocial.util.LinkedList;
-import co.uniquindio.redSocial.util.Node;
-import co.uniquindio.redSocial.util.Stack;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import co.uniquindio.redSocial.exceptions.*;
+import co.uniquindio.redSocial.util.*;
 
 public class User implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String id;
 	private String name;
 	private String surname;
 	private String nick_name;
 	private String email;
-	private String password;
 	private String image;
 	private Graph<User> friends;
 	private Wall myWall;
@@ -47,13 +33,11 @@ public class User implements Serializable {
 	 * @param password  del user
 	 * @param image     url del user para su foto
 	 */
-	public User(String id, String name, String surname, String nick_name, String email, String password, String image) {
-		this.id = id;
+	public User(String name, String surname, String nick_name, String email, String image) {
 		this.name = name;
 		this.surname = surname;
 		this.nick_name = nick_name;
 		this.email = email;
-		this.password = password;
 		this.image = image;
 		setFriends(new Graph<User>());
 		myWall = new Wall(this);
@@ -64,19 +48,7 @@ public class User implements Serializable {
 	 * Metodo constructor vacio de la clase user
 	 */
 	public User() {
-		this("$%$%$%$", "#$#$#$#$#$", "&#&#&#&#&", "Nicknull", "@@@", "##$##", "URL");
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public StringProperty idProperty() {
-		return new SimpleStringProperty(id);
-	}
-
-	public void setId(String id) {
-		this.id = id;
+		this("#$#$#$#$#$", "Nicknull", "@@@", "##$##", "URL");
 	}
 
 	public String getName() {
@@ -109,14 +81,6 @@ public class User implements Serializable {
 
 	public void setNick_name(String nick_name) {
 		this.nick_name = nick_name;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getImage() {
@@ -163,15 +127,15 @@ public class User implements Serializable {
 	 * Metodo que permite agregar un amigo
 	 * 
 	 * @param newFriend nuevo amigo
-	 * @throws NodeRepeatException	de la clase nodo
+	 * @throws NodeRepeatException       de la clase nodo
 	 * @throws MaxNumberFriendsException si supera la cantidad de amigos predicha
 	 */
 	public void addFriend(User newFriend) throws NodeRepeatException, MaxNumberFriendsException {
-		if(getFriends().getGraph().size()<MAX_FRIENDS)
+		if (getFriends().getGraph().size() < MAX_FRIENDS)
 			getFriends().addNode(newFriend.getNick_name(), newFriend);
 		else
 			throw new MaxNumberFriendsException("Superas la cantidad de amigos, no puedes tener mas!");
-			
+
 	}
 
 	/**
@@ -281,7 +245,7 @@ public class User implements Serializable {
 		User auxiliar;
 		if (obj instanceof User) {
 			auxiliar = (User) obj;
-			if (auxiliar.getId().equals(this.getId()) && auxiliar.getNick_name().equals(this.getNick_name()))
+			if (auxiliar.getNick_name().equals(this.getNick_name()))
 				isEquals = true;
 		}
 		return isEquals;

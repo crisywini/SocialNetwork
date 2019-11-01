@@ -29,8 +29,6 @@ public class Main extends Application implements ISocialNetworkControl {
 			loader.setLocation(Main.class.getResource("../view/PrincipalPane.fxml"));
 			BorderPane principalPane = (BorderPane) loader.load();
 			Scene scene = new Scene(principalPane);
-			PrincipalPaneController controller = loader.getController();
-			controller.setPrincipal(this);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
@@ -53,9 +51,9 @@ public class Main extends Application implements ISocialNetworkControl {
 	// ----------------------------Services----------------------------
 
 	@Override
-	public void addUser(String id, String name, String surname, String nick_name, String email, String password,
-			String image) throws NodeRepeatException {
-		getMySocialNetwork().addUser(id, name, surname, nick_name, email, password, image);
+	public void addUser(String name, String surname, String nick_name, String email, String image)
+			throws NodeRepeatException {
+		getMySocialNetwork().addUser(name, surname, nick_name, email, image);
 	}
 
 	@Override
