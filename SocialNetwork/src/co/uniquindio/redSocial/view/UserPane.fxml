@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="co.uniquindio.redSocial.controller.UserPaneController">
+   <children>
+      <GridPane layoutX="14.0" layoutY="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="167.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="533.0" minWidth="10.0" prefWidth="533.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fitHeight="128.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="file:///C:/Users/Crisi/Desktop/Proyectos_Java/Proyectos_Estructuras/RedSocial/respositorio/SocialNetwork/src/co/uniquindio/redSocial/images/User.png" />
+                     </image>
+                  </ImageView>
+                  <HBox alignment="CENTER" prefHeight="54.0" prefWidth="167.0">
+                     <children>
+                        <Label fx:id="nickNameLabel" text="Label" />
+                     </children>
+                  </HBox>
+                  <GridPane prefHeight="163.0" prefWidth="167.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#handleMensajesButton" style="-fx-background-radius: 20px;" text="Mensajes" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#handleAmigosButton" style="-fx-background-radius: 20px;" text="Amigos" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#handleSolicitudesButton" style="-fx-background-radius: 20px;" text="Solicitudes" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#handleBloqueadosButton" style="-fx-background-radius: 20px;" text="Bloqueados" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="postTextArea" prefHeight="100.0" prefWidth="442.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="533.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#handlePublicarButton" style="-fx-background-radius: 20px;" text="Publicar" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <ScrollPane fx:id="scrollPane" prefHeight="429.0" prefWidth="503.0" />
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
