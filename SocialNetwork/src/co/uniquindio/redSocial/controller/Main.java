@@ -18,7 +18,7 @@ public class Main extends Application implements ISocialNetworkControl {
 
 	@Override
 	public void start(Stage primaryStage) {
-		mySocialNetwork = new SocialNetwork("Criluli");
+		mySocialNetwork = new SocialNetwork("CRILULI");
 		primaryStage.setTitle(mySocialNetwork.getName());
 		showPrincipalStage(primaryStage);
 	}

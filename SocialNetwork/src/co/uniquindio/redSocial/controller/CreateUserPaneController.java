@@ -1,5 +1,6 @@
 package co.uniquindio.redSocial.controller;
 
+import co.uniquindio.redSocial.exceptions.NodeRepeatException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
@@ -26,8 +27,25 @@ public class CreateUserPaneController {
 	@FXML
 	void handleAgreagarButton() {
 
-		if(isInputValid()) {
-			
+		if (isInputValid()) {
+
+			try {
+				principalPane.getMain().addUser(nombreField.getText(), apellidoField.getText(),
+						nombreDeUsuarioField.getText(), emailField.getText(), imagenField.getText());
+
+				principalPane.showAlert("Usuario: " + nombreDeUsuarioField.getText() + " agregado.", "", "INFORMACION",
+						AlertType.INFORMATION);
+
+				nombreDeUsuarioField.setText("");
+				nombreField.setText("");
+				apellidoField.setText("");
+				emailField.setText("");
+				imagenField.setText("");
+
+			} catch (NodeRepeatException e) {
+
+				principalPane.showAlert(e.getMessage(), "", "ERROR", AlertType.ERROR);
+			}
 		}
 	}
 

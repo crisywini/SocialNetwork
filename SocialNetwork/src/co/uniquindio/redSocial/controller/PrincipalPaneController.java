@@ -9,6 +9,8 @@ import javafx.scene.layout.BorderPane;
 
 public class PrincipalPaneController {
 
+	private Main main;
+	
 	@FXML
 	private BorderPane principalPane;
 
@@ -67,4 +69,14 @@ public class PrincipalPaneController {
 		
 		alert.showAndWait();
 	}
+
+	public Main getMain() {
+		return main;
+	}
+
+	public void setMain(Main main) {
+		this.main = main;
+	}
+	
+	
 }
