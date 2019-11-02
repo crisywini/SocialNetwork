@@ -29,6 +29,8 @@ public class Main extends Application implements ISocialNetworkControl {
 			loader.setLocation(Main.class.getResource("../view/PrincipalPane.fxml"));
 			BorderPane principalPane = (BorderPane) loader.load();
 			Scene scene = new Scene(principalPane);
+			PrincipalPaneController principalController = loader.getController();
+			principalController.setMain(this);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
