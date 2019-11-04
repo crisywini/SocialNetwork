@@ -64,7 +64,7 @@ public class SocialNetworkPaneController {
 		if (network.getUsers().getSize() == 0) {
 			menuFriendsHBox.getChildren().add(information);
 		} else {
-			menuFriendsHBox.getChildren().removeAll(information);
+			menuFriendsHBox.getChildren().clear();
 			Graph<User> users = network.getUsers();
 			User auxiliar;
 			HashMap<String, Node<User>> hashMapUser = users.getGraph();
@@ -78,7 +78,6 @@ public class SocialNetworkPaneController {
 				friendsButton.add(newFriendButton);
 			}
 		}
-		menuFriendsHBox.getChildren().clear();
 		ObservableList<javafx.scene.Node> buttons = FXCollections.observableArrayList(friendsButton);
 		menuFriendsHBox.getChildren().addAll(buttons);
 	}
