@@ -1,5 +1,6 @@
 package co.uniquindio.redSocial.controller;
 
+import co.uniquindio.redSocial.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -10,19 +11,21 @@ import javafx.scene.layout.BorderPane;
 public class PrincipalPaneController {
 
 	private Main main;
-	
+
 	@FXML
 	private BorderPane principalPane;
 
 	AnchorPane createUserPane;
 	AnchorPane menuPane;
+	AnchorPane userPane;
 	CreateUserPaneController createUserPaneController;
 	MenuPaneController menuPaneController;
+	UserPaneController userPaneController;
 
 	@FXML
 	void initialize() {
 
-		showMenuPane();
+		showUserPane(new User("Holi", "Crisi", "crisywini", "", ""));
 	}
 
 	public void showMenuPane() {
@@ -59,6 +62,22 @@ public class PrincipalPaneController {
 		principalPane.setCenter(createUserPane);
 	}
 
+	public void showUserPane(User user) {
+		if (userPane == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(Main.class.getResource("../view/UserPane.fxml"));
+				userPane = (AnchorPane) loader.load();
+				UserPaneController controller = loader.getController();
+				controller.setPrincipalPane(this);
+				controller.setUser(user);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		principalPane.setCenter(userPane);
+	}
+
 	public void showAlert(String message, String header, String title, AlertType alertType) {
 
 		Alert alert = new Alert(alertType);
@@ -66,7 +85,7 @@ public class PrincipalPaneController {
 		alert.setContentText(message);
 		alert.setHeaderText(header);
 		alert.setTitle(title);
-		
+
 		alert.showAndWait();
 	}
 
@@ -77,6 +96,5 @@ public class PrincipalPaneController {
 	public void setMain(Main main) {
 		this.main = main;
 	}
-	
-	
+
 }
