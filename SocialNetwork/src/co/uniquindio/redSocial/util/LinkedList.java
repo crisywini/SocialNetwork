@@ -100,24 +100,23 @@ public class LinkedList<T> {
 		}
 		return exist;
 	}
-	
+
 	/**
 	 * Metodo que permite eliminar un elemento de la lista
+	 * 
 	 * @param value valor a eliminar
 	 * @throws BigIndexException deborde
 	 */
 	public void remove(T value) throws BigIndexException {
 		Node<T> node = first;
-		if (size==1 && node.getValue().equals(value)) {
-			first=null;
-		}
-		else if (node.getValue().equals(value)&&size>1) {
-			first=node.followLink(0);
-			node=null;
-		}
-		else {
+		if (size == 1 && node.getValue().equals(value)) {
+			first = null;
+		} else if (node.getValue().equals(value) && size > 1) {
+			first = node.followLink(0);
+			node = null;
+		} else {
 			for (int i = 0; i < size; i++) {
-				if ( node.followLink(0).getValue().equals(value)) {
+				if (node.followLink(0).getValue().equals(value)) {
 					Node<T> aux = node.followLink(0);
 					node.connectNode(aux.followLink(0), 0);
 					break;

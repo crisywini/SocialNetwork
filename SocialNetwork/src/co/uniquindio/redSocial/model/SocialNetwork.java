@@ -83,4 +83,5 @@ public class SocialNetwork implements Serializable {
 	public User removeUser(String nick_name) throws NodeGraphWithLinksException, NodeGraphNullException {
 		return users.remove(nick_name).getValue();
 	}
+
 }

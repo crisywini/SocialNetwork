@@ -18,14 +18,15 @@ public class PrincipalPaneController {
 	AnchorPane createUserPane;
 	AnchorPane menuPane;
 	AnchorPane userPane;
+	BorderPane socialNetworkPane;
 	CreateUserPaneController createUserPaneController;
 	MenuPaneController menuPaneController;
 	UserPaneController userPaneController;
+	SocialNetworkPaneController socialNetworkPaneController;
 
 	@FXML
 	void initialize() {
-
-		showUserPane(new User("Holi", "Crisi", "crisywini", "", ""));
+		showMenuPane();
 	}
 
 	public void showMenuPane() {
@@ -62,7 +63,7 @@ public class PrincipalPaneController {
 		principalPane.setCenter(createUserPane);
 	}
 
-	public void showUserPane(User user) {
+	public void showUserPane(User user, BorderPane pane) {
 		if (userPane == null) {
 			try {
 				FXMLLoader loader = new FXMLLoader();
@@ -75,7 +76,23 @@ public class PrincipalPaneController {
 				e.printStackTrace();
 			}
 		}
-		principalPane.setCenter(userPane);
+		pane.setCenter(userPane);
+	}
+
+	public void showSocialNetworkPane() {
+		if (socialNetworkPane == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(Main.class.getResource("../view/SocialNetworkPane.fxml"));
+				socialNetworkPane = (BorderPane) loader.load();
+				socialNetworkPaneController = loader.getController();
+				socialNetworkPaneController.setPrincipalPane(this);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		socialNetworkPaneController.fillMenuFriendsHBox();
+		principalPane.setCenter(socialNetworkPane);
 	}
 
 	public void showAlert(String message, String header, String title, AlertType alertType) {

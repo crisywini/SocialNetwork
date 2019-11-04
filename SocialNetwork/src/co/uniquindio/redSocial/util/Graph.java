@@ -19,6 +19,7 @@ public class Graph<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private HashMap<String, Node<T>> graph;
 	private Node<T> initial;
+	private int size;
 
 	/**
 	 * Metodo constructor sin parametros de la clase Grafo
@@ -26,6 +27,7 @@ public class Graph<T> implements Serializable {
 	public Graph() {
 		graph = new HashMap<String, Node<T>>();
 		initial = null;
+		setSize(graph.size());
 	}
 
 	/**
@@ -36,6 +38,7 @@ public class Graph<T> implements Serializable {
 	public Graph(Node<T> initial) {
 		graph = new HashMap<String, Node<T>>();
 		this.initial = initial;
+		setSize(graph.size());
 	}
 
 	public HashMap<String, Node<T>> getGraph() {
@@ -75,6 +78,7 @@ public class Graph<T> implements Serializable {
 		Node<T> nodo = new Node<T>(value);
 		if (!isOnGraph(name)) {
 			graph.put(name, nodo);
+			size++;
 		} else {
 			throw new NodeRepeatException("El nodo: " + name + " ya existe en el grafo!");
 		}
@@ -97,13 +101,16 @@ public class Graph<T> implements Serializable {
 		if (auxiliar.getLinks().size() > 0)
 			throw new NodeGraphWithLinksException(
 					"El nodo: " + name + " no puede ser eliminado ya que tiene mas conexiones");
+		size--;
 		return graph.remove(name);
 	}
+
 	/**
 	 * Metodo que permite desconectar un nodo con otro
-	 * @param originName nodo que quiere ser desconectado
+	 * 
+	 * @param originName  nodo que quiere ser desconectado
 	 * @param destinyName nodo que se quiere desconectar
-	 * @throws NodeGraphNullException 
+	 * @throws NodeGraphNullException
 	 * @throws NodeNotConnectedException
 	 * @throws BigIndexException
 	 */
@@ -193,7 +200,6 @@ public class Graph<T> implements Serializable {
 		graph.get(name).setValue(value);
 	}
 
-
 	@Override
 	public String toString() {
 		String info = "[";
@@ -203,6 +209,14 @@ public class Graph<T> implements Serializable {
 		}
 		info = info.substring(0, info.length() - 1) + "]";
 		return info;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 }

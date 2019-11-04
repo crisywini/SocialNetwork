@@ -3,9 +3,9 @@ package co.uniquindio.redSocial.controller;
 import javafx.fxml.FXML;
 
 public class MenuPaneController {
-	
+
 	private PrincipalPaneController principalPane;
-	
+
 	@FXML
 	void handleCrearNuevoUsuarioButton() {
 
@@ -14,8 +14,7 @@ public class MenuPaneController {
 
 	@FXML
 	void handleIngresarACriluliButton() {
-
-		
+		principalPane.showSocialNetworkPane();
 	}
 
 	@FXML
@@ -30,6 +29,5 @@ public class MenuPaneController {
 	public void setPrincipalPane(PrincipalPaneController principalPane) {
 		this.principalPane = principalPane;
 	}
-	
-	
+
 }

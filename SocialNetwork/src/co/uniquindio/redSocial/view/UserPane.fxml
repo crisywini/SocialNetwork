@@ -87,9 +87,9 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <ScrollPane prefHeight="405.0" prefWidth="533.0" VBox.vgrow="ALWAYS">
+                  <ScrollPane prefHeight="395.0" prefWidth="533.0">
                      <content>
-                        <VBox fx:id="postVBox" alignment="TOP_CENTER" prefHeight="449.0" prefWidth="533.0" />
+                        <VBox fx:id="postVBox" alignment="TOP_CENTER" prefHeight="395.0" prefWidth="533.0" />
                      </content>
                   </ScrollPane>
                </children>
