@@ -1,12 +1,16 @@
 package co.uniquindio.redSocial.controller;
 
+import java.util.Optional;
+
 import co.uniquindio.redSocial.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class PrincipalPaneController {
 
@@ -14,6 +18,7 @@ public class PrincipalPaneController {
 
 	@FXML
 	private BorderPane principalPane;
+	private Stage primaryStage;
 
 	AnchorPane createUserPane;
 	AnchorPane menuPane;
@@ -98,12 +103,24 @@ public class PrincipalPaneController {
 	public void showAlert(String message, String header, String title, AlertType alertType) {
 
 		Alert alert = new Alert(alertType);
-
+		alert.initOwner(getPrimaryStage());
 		alert.setContentText(message);
 		alert.setHeaderText(header);
 		alert.setTitle(title);
-
 		alert.showAndWait();
+	}
+
+	public boolean elegir(String mensaje) {
+		boolean centinela;
+		Alert miAlert = new Alert(AlertType.CONFIRMATION);
+		miAlert.setContentText(mensaje);
+		miAlert.initOwner(getPrimaryStage());
+		ButtonType buttonTypeOne = new ButtonType("Si");
+		ButtonType buttonTypeTwo = new ButtonType("No");
+		miAlert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+		Optional<ButtonType> resultado = miAlert.showAndWait();
+		centinela = resultado.get() == buttonTypeOne;
+		return centinela;
 	}
 
 	public Main getMain() {
@@ -114,4 +131,11 @@ public class PrincipalPaneController {
 		this.main = main;
 	}
 
+	public Stage getPrimaryStage() {
+		return primaryStage;
+	}
+
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+	}
 }

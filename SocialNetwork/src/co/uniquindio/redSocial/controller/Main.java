@@ -1,10 +1,15 @@
 package co.uniquindio.redSocial.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
 import co.uniquindio.redSocial.exceptions.NodeGraphWithLinksException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
 import co.uniquindio.redSocial.model.SocialNetwork;
 import co.uniquindio.redSocial.model.User;
+import co.uniquindio.redSocial.persistence.Archivo;
+import co.uniquindio.redSocial.persistence.Persistencia;
 import co.uniquindio.redSocial.util.Graph;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +23,7 @@ public class Main extends Application implements ISocialNetworkControl {
 
 	@Override
 	public void start(Stage primaryStage) {
-		mySocialNetwork = new SocialNetwork("CRILULI");
+		loadData();
 		primaryStage.setTitle(mySocialNetwork.getName());
 		showPrincipalStage(primaryStage);
 	}
@@ -31,6 +36,7 @@ public class Main extends Application implements ISocialNetworkControl {
 			Scene scene = new Scene(principalPane);
 			PrincipalPaneController principalController = loader.getController();
 			principalController.setMain(this);
+			principalController.setPrimaryStage(primaryStage);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
@@ -49,6 +55,44 @@ public class Main extends Application implements ISocialNetworkControl {
 
 	public void setMySocialNetwork(SocialNetwork mySocialNetwork) {
 		this.mySocialNetwork = mySocialNetwork;
+	}
+
+	// -----------------------------Persistence-------------------------
+	public void serializeSocialNetwork() throws IOException {
+		Persistencia.serializarObjeto(Persistencia.SOCIAL_NETWORK_DAT, mySocialNetwork);
+	}
+
+	public Object deserializeObject() throws ClassNotFoundException, IOException {
+		return Persistencia.deserializarObjeto(Persistencia.SOCIAL_NETWORK_DAT);
+	}
+
+	public void saveData() throws IOException {
+		serializeSocialNetwork();
+	}
+
+	public void createFiles() {
+		if (!Archivo.isCreatedFile(Persistencia.SOCIAL_NETWORK_DAT))
+			try {
+				serializeSocialNetwork();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+
+	public void loadData() {
+		File socialNetowrkDat = new File(Persistencia.SOCIAL_NETWORK_DAT);
+		if (socialNetowrkDat.exists()) {
+			SocialNetwork socialNetworkAux;
+			try {
+				socialNetworkAux = (SocialNetwork) deserializeObject();
+				setMySocialNetwork(socialNetworkAux);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			mySocialNetwork = new SocialNetwork("Criluli");
+			createFiles();
+		}
 	}
 	// ----------------------------Services----------------------------
 
