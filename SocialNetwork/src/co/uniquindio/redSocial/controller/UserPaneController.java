@@ -19,6 +19,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -43,6 +44,7 @@ public class UserPaneController {
 			}
 		}
 	};
+	private BorderPane pane;
 	@FXML
 	private Label nickNameLabel;
 
@@ -64,7 +66,7 @@ public class UserPaneController {
 
 	@FXML
 	void handleMensajesButton() {
-
+		principalPane.showMessagesPane(user, pane);
 	}
 
 	@FXML
@@ -112,14 +114,12 @@ public class UserPaneController {
 		postVBox.getChildren().add(postLabel);
 		HBox postHBox = new HBox(10);
 		postHBox.setAlignment(Pos.CENTER);
-		postHBox.setStyle("-fx-border-color: #d6d3d0;");
 		Button likeButton = new Button("Like");
 		likeButton.setStyle("-fx-background-radius: 20px;");
 		likeButton.setId("likeBtn");
 		likeButton.setOnAction(handleButtons);
 		Button commentButton = new Button("Comentar");
 		commentButton.setStyle("-fx-background-radius: 20px;");
-		commentButton.setStyle("-fx-background-color:  #d0700a");
 		commentButton.setId("comentarBtn");
 		commentButton.setOnAction(handleButtons);
 		Button seeCommentsButton = new Button("Ver comentarios");
@@ -144,7 +144,6 @@ public class UserPaneController {
 		postVBox.getChildren().add(postLabel);
 		HBox postHBox = new HBox(10);
 		postHBox.setAlignment(Pos.CENTER);
-		postHBox.setStyle("-fx-border-color: #623f1b;");
 		Button likeButton = new Button("Like");
 		likeButton.setStyle("-fx-background-radius: 20px;");
 		likeButton.setId("likeBtn");
@@ -199,5 +198,13 @@ public class UserPaneController {
 
 	public ObservableList<Node> getPostVBox() {
 		return handlePostVBox;
+	}
+
+	public BorderPane getPane() {
+		return pane;
+	}
+
+	public void setPane(BorderPane pane) {
+		this.pane = pane;
 	}
 }

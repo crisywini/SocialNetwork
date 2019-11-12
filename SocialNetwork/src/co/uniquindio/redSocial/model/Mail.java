@@ -3,6 +3,8 @@ package co.uniquindio.redSocial.model;
 import java.io.Serializable;
 
 import co.uniquindio.redSocial.util.Date;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Mail implements Serializable {
 	/**
@@ -78,6 +80,14 @@ public class Mail implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public StringProperty transmitterNickNameProperty() {
+		return new SimpleStringProperty(transmitter.getNick_name());
+	}
+
+	public StringProperty messageProperty() {
+		return new SimpleStringProperty(message);
 	}
 
 }
