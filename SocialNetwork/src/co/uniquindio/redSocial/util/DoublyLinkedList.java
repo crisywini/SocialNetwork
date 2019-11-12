@@ -1,8 +1,14 @@
 package co.uniquindio.redSocial.util;
 
+import java.io.Serializable;
+
 import co.uniquindio.redSocial.exceptions.BigIndexException;
 
-public class DoublyLinkedList<T> {
+public class DoublyLinkedList<T> implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Node<T> first;
 	private Node<T> last;
 	private int size;

@@ -1,9 +1,15 @@
 package co.uniquindio.redSocial.util;
 
+import java.io.Serializable;
+
 import co.uniquindio.redSocial.exceptions.BigIndexException;
 import co.uniquindio.redSocial.exceptions.EmptyLinkedListException;
 
-public class Stack<T> {
+public class Stack<T> implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private LinkedList<T> linkedList;
 
 	/**

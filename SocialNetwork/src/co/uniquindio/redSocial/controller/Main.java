@@ -12,14 +12,29 @@ import co.uniquindio.redSocial.persistence.Archivo;
 import co.uniquindio.redSocial.persistence.Persistencia;
 import co.uniquindio.redSocial.util.Graph;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
 public class Main extends Application implements ISocialNetworkControl {
 
-	private SocialNetwork mySocialNetwork;
+	public static SocialNetwork mySocialNetwork;
+	static EventHandler<WindowEvent> closer = new EventHandler<WindowEvent>() {
+
+		@Override
+		public void handle(WindowEvent event) {
+			if (PrincipalPaneController.elegir("¿Desea guardar los datos?")) {
+				try {
+					serializeSocialNetwork();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	};
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -38,6 +53,7 @@ public class Main extends Application implements ISocialNetworkControl {
 			principalController.setMain(this);
 			principalController.setPrimaryStage(primaryStage);
 			primaryStage.setScene(scene);
+			primaryStage.setOnCloseRequest(closer);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,7 +74,7 @@ public class Main extends Application implements ISocialNetworkControl {
 	}
 
 	// -----------------------------Persistence-------------------------
-	public void serializeSocialNetwork() throws IOException {
+	public static void serializeSocialNetwork() throws IOException {
 		Persistencia.serializarObjeto(Persistencia.SOCIAL_NETWORK_DAT, mySocialNetwork);
 	}
 
@@ -97,9 +113,8 @@ public class Main extends Application implements ISocialNetworkControl {
 	// ----------------------------Services----------------------------
 
 	@Override
-	public void addUser(String name, String surname, String nick_name, String email, String image)
-			throws NodeRepeatException {
-		getMySocialNetwork().addUser(name, surname, nick_name, email, image);
+	public void addUser(String name, String surname, String nick_name, String email) throws NodeRepeatException {
+		getMySocialNetwork().addUser(name, surname, nick_name, email);
 	}
 
 	@Override

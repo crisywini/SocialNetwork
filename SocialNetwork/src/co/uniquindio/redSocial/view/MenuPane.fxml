@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -15,8 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="580.0" prefWidth="579.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.redSocial.controller.MenuPaneController">
+<AnchorPane prefHeight="580.0" prefWidth="579.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.redSocial.controller.MenuPaneController">
    <children>
       <VBox alignment="CENTER" layoutX="275.0" layoutY="225.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -27,9 +23,9 @@
             </ImageView>
             <HBox alignment="CENTER" prefHeight="74.0" prefWidth="650.0">
                <children>
-                  <Label text="BIENVENIDO A CRILULI">
+                  <Label text="Bienvenido a Criluli">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="Dubai Regular" size="24.0" />
                      </font></Label>
                </children>
             </HBox>
@@ -46,12 +42,18 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="164.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleCrearNuevoUsuarioButton" style="-fx-background-radius: 20px;" text="Crear nuevo usuario" />
+                              <Button mnemonicParsing="false" onAction="#handleCrearNuevoUsuarioButton" style="-fx-background-radius: 20px; -fx-background-color: #d0700a;" text="Crear nuevo usuario">
+                                 <font>
+                                    <Font name="Dubai Regular" size="13.0" />
+                                 </font></Button>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleIngresarACriluliButton" style="-fx-background-radius: 20px;" text="Ingresar a Criluli" />
+                              <Button mnemonicParsing="false" onAction="#handleIngresarACriluliButton" style="-fx-background-radius: 20px; -fx-background-color: #d0700a;" text="Ingresar a Criluli">
+                                 <font>
+                                    <Font name="Dubai Regular" size="13.0" />
+                                 </font></Button>
                            </children>
                         </HBox>
                      </children>

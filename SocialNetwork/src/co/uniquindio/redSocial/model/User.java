@@ -14,7 +14,6 @@ public class User implements Serializable {
 	private String surname;
 	private String nick_name;
 	private String email;
-	private String image;
 	private Graph<User> friends;
 	private Wall myWall;
 	private LinkedList<User> blockedFriends;
@@ -33,12 +32,11 @@ public class User implements Serializable {
 	 * @param password  del user
 	 * @param image     url del user para su foto
 	 */
-	public User(String name, String surname, String nick_name, String email, String image) {
+	public User(String name, String surname, String nick_name, String email) {
 		this.name = name;
 		this.surname = surname;
 		this.nick_name = nick_name;
 		this.email = email;
-		this.image = image;
 		setFriends(new Graph<User>());
 		myWall = new Wall(this);
 		friendsRequest = new LinkedList<User>();
@@ -48,7 +46,7 @@ public class User implements Serializable {
 	 * Metodo constructor vacio de la clase user
 	 */
 	public User() {
-		this("#$#$#$#$#$", "Nicknull", "@@@", "##$##", "URL");
+		this("#$#$#$#$#$", "Nicknull", "@@@", "##$##");
 	}
 
 	public String getName() {
@@ -81,14 +79,6 @@ public class User implements Serializable {
 
 	public void setNick_name(String nick_name) {
 		this.nick_name = nick_name;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 	public Wall getMyWall() {

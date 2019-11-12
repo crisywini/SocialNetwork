@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -18,6 +19,8 @@ public class PrincipalPaneController {
 
 	@FXML
 	private BorderPane principalPane;
+	@FXML
+	private Menu usersMenu;
 	private Stage primaryStage;
 
 	AnchorPane createUserPane;
@@ -69,18 +72,17 @@ public class PrincipalPaneController {
 	}
 
 	public void showUserPane(User user, BorderPane pane) {
-		if (userPane == null) {
-			try {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(Main.class.getResource("../view/UserPane.fxml"));
-				userPane = (AnchorPane) loader.load();
-				UserPaneController controller = loader.getController();
-				controller.setPrincipalPane(this);
-				controller.setUser(user);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/UserPane.fxml"));
+			userPane = (AnchorPane) loader.load();
+			UserPaneController controller = loader.getController();
+			controller.setPrincipalPane(this);
+			controller.setUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 		pane.setCenter(userPane);
 	}
 
@@ -92,6 +94,7 @@ public class PrincipalPaneController {
 				socialNetworkPane = (BorderPane) loader.load();
 				socialNetworkPaneController = loader.getController();
 				socialNetworkPaneController.setPrincipalPane(this);
+				socialNetworkPaneController.setUsersMenu(usersMenu);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -110,11 +113,11 @@ public class PrincipalPaneController {
 		alert.showAndWait();
 	}
 
-	public boolean elegir(String mensaje) {
+	public static boolean elegir(String mensaje) {
 		boolean centinela;
 		Alert miAlert = new Alert(AlertType.CONFIRMATION);
 		miAlert.setContentText(mensaje);
-		miAlert.initOwner(getPrimaryStage());
+		miAlert.setHeaderText("");
 		ButtonType buttonTypeOne = new ButtonType("Si");
 		ButtonType buttonTypeTwo = new ButtonType("No");
 		miAlert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
@@ -138,4 +141,5 @@ public class PrincipalPaneController {
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 	}
+
 }

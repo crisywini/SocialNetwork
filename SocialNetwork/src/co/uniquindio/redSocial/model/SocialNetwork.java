@@ -67,9 +67,8 @@ public class SocialNetwork implements Serializable {
 	 * @param image     del usuario
 	 * @throws NodeRepeatException de la clase Grafo
 	 */
-	public void addUser(String name, String surname, String nick_name, String email, String image)
-			throws NodeRepeatException {
-		users.addNode(nick_name, new User(name, surname, nick_name, email, image));
+	public void addUser(String name, String surname, String nick_name, String email) throws NodeRepeatException {
+		users.addNode(nick_name, new User(name, surname, nick_name, email));
 	}
 
 	/**

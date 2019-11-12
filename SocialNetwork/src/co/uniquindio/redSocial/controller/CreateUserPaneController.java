@@ -13,9 +13,6 @@ public class CreateUserPaneController {
 	private TextField nombreDeUsuarioField;
 
 	@FXML
-	private TextField imagenField;
-
-	@FXML
 	private TextField emailField;
 
 	@FXML
@@ -31,7 +28,7 @@ public class CreateUserPaneController {
 
 			try {
 				principalPane.getMain().addUser(nombreField.getText(), apellidoField.getText(),
-						nombreDeUsuarioField.getText(), emailField.getText(), imagenField.getText());
+						nombreDeUsuarioField.getText(), emailField.getText());
 
 				principalPane.showAlert("Usuario: " + nombreDeUsuarioField.getText() + " agregado.", "", "INFORMACION",
 						AlertType.INFORMATION);
@@ -40,7 +37,6 @@ public class CreateUserPaneController {
 				nombreField.setText("");
 				apellidoField.setText("");
 				emailField.setText("");
-				imagenField.setText("");
 
 			} catch (NodeRepeatException e) {
 
@@ -58,7 +54,6 @@ public class CreateUserPaneController {
 	@FXML
 	void initialize() {
 		assert nombreDeUsuarioField != null : "fx:id=\"nombreDeUsuarioField\" was not injected: check your FXML file 'CreateUserPane.fxml'.";
-		assert imagenField != null : "fx:id=\"imagenField\" was not injected: check your FXML file 'CreateUserPane.fxml'.";
 		assert emailField != null : "fx:id=\"emailField\" was not injected: check your FXML file 'CreateUserPane.fxml'.";
 		assert nombreField != null : "fx:id=\"nombreField\" was not injected: check your FXML file 'CreateUserPane.fxml'.";
 		assert apellidoField != null : "fx:id=\"apellidoField\" was not injected: check your FXML file 'CreateUserPane.fxml'.";
@@ -73,9 +68,7 @@ public class CreateUserPaneController {
 		if (nombreDeUsuarioField.getText().length() == 0 || nombreDeUsuarioField.getText() == null) {
 			errorMessage += "Debe ingresar el nombre de usuario.\n";
 		}
-		if (imagenField.getText().length() == 0 || imagenField.getText() == null) {
-			errorMessage += "Debe ingresar la ruta de la imagen.\n";
-		}
+
 		if (emailField.getText().length() == 0 || emailField.getText() == null) {
 			errorMessage += "Debe ingresar el correo electronico.\n";
 		}

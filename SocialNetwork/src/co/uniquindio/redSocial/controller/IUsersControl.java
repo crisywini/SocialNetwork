@@ -7,8 +7,7 @@ import co.uniquindio.redSocial.model.User;
 import co.uniquindio.redSocial.util.Graph;
 
 public interface IUsersControl {
-	public void addUser(String name, String surname, String nick_name, String email, String image)
-			throws NodeRepeatException;
+	public void addUser(String name, String surname, String nick_name, String email) throws NodeRepeatException;
 
 	public User removeUser(String nick_name) throws NodeGraphWithLinksException, NodeGraphNullException;
 

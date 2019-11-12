@@ -1,10 +1,15 @@
 package co.uniquindio.redSocial.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import co.uniquindio.redSocial.exceptions.BigIndexException;
 
-public class Node<T> {
+public class Node<T> implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private T value;
 	private ArrayList<Node<T>> links;
 

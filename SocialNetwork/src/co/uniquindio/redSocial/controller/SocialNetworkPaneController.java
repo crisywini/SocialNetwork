@@ -1,6 +1,7 @@
 package co.uniquindio.redSocial.controller;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -15,23 +16,26 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 
 public class SocialNetworkPaneController {
 
+	private Menu usersMenu;
 	private PrincipalPaneController principalPane;
-	private ArrayList<Button> friendsButton = new ArrayList<Button>();
-	private EventHandler<ActionEvent> handlerFriendsButton = new EventHandler<ActionEvent>() {
+	private ArrayList<MenuItem> friendsMenuItem = new ArrayList<MenuItem>();
+	private EventHandler<ActionEvent> handlerFriendsMenuItem = new EventHandler<ActionEvent>() {
 
 		@Override
 		public void handle(ActionEvent event) {
-			Button auxiliar = (Button) event.getSource();
+			MenuItem auxiliar = (MenuItem) event.getSource();
 			SocialNetwork network = principalPane.getMain().getMySocialNetwork();
 			Graph<User> users = network.getUsers();
 			User user;
-			for (int i = 0; i < friendsButton.size(); i++) {
-				if (friendsButton.get(i).getId().equals(auxiliar.getId())) {
+			for (int i = 0; i < friendsMenuItem.size(); i++) {
+				if (friendsMenuItem.get(i).getId().equals(auxiliar.getId())) {
 					user = users.getGraph().get(auxiliar.getId()).getValue();
 					principalPane.showUserPane(user, menuPane);
 				}
@@ -43,12 +47,8 @@ public class SocialNetworkPaneController {
 	private BorderPane menuPane;
 
 	@FXML
-	private HBox menuFriendsHBox;
-
-	@FXML
 	void initialize() {
 		assert menuPane != null : "fx:id=\"menuPane\" was not injected: check your FXML file 'SocialNetworkPane.fxml'.";
-		assert menuFriendsHBox != null : "fx:id=\"menuFriendsHBox\" was not injected: check your FXML file 'SocialNetworkPane.fxml'.";
 	}
 
 	@FXML
@@ -60,29 +60,37 @@ public class SocialNetworkPaneController {
 		Main main = principalPane.getMain();
 		SocialNetwork network = main.getMySocialNetwork();
 		Label information = new Label("No hay usuarios!");
-		friendsButton.clear();
+		information.setFont(new Font("Lucida Sans Unicode", 24));
+		friendsMenuItem.clear();
 		if (network.getUsers().getSize() == 0) {
-			menuFriendsHBox.getChildren().add(information);
+			menuPane.setCenter(information);
 		} else {
-			menuFriendsHBox.getChildren().clear();
+			usersMenu.getItems().clear();
 			Graph<User> users = network.getUsers();
 			User auxiliar;
 			HashMap<String, Node<User>> hashMapUser = users.getGraph();
 			Iterator<String> iterator = hashMapUser.keySet().iterator();
 			while (iterator.hasNext()) {
 				auxiliar = hashMapUser.get(iterator.next()).getValue();
-				Button newFriendButton = new Button(auxiliar.getNick_name());
-				newFriendButton.setId(auxiliar.getNick_name());
-				newFriendButton.setStyle("-fx-background-radius: 20px;");
-				newFriendButton.setOnAction(handlerFriendsButton);
-				friendsButton.add(newFriendButton);
+				MenuItem newFriendItem = new MenuItem(auxiliar.getNick_name());
+				newFriendItem.setId(newFriendItem.getText());
+				newFriendItem.setOnAction(handlerFriendsMenuItem);
+				friendsMenuItem.add(newFriendItem);
 			}
 		}
-		ObservableList<javafx.scene.Node> buttons = FXCollections.observableArrayList(friendsButton);
-		menuFriendsHBox.getChildren().addAll(buttons);
+		usersMenu.getItems().clear();
+		usersMenu.getItems().addAll(friendsMenuItem);
 	}
 
 	public void setPrincipalPane(PrincipalPaneController principalPane) {
 		this.principalPane = principalPane;
+	}
+
+	public Menu getUsersMenu() {
+		return usersMenu;
+	}
+
+	public void setUsersMenu(Menu usersMenu) {
+		this.usersMenu = usersMenu;
 	}
 }

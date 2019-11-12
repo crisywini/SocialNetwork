@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -15,8 +11,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.redSocial.controller.CreateUserPaneController">
+<AnchorPane prefHeight="600.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.redSocial.controller.CreateUserPaneController">
    <children>
       <VBox alignment="CENTER" layoutX="225.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -40,67 +37,74 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label text="Nombre" />
+                        <Label text="Nombre">
+                           <font>
+                              <Font name="Dubai Regular" size="18.0" />
+                           </font></Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Apellido" />
+                        <Label text="Apellido">
+                           <font>
+                              <Font name="Dubai Regular" size="18.0" />
+                           </font></Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                      <children>
-                        <Label text="Nombre de usuario" />
+                        <Label text="Nombre de usuario">
+                           <font>
+                              <Font name="Dubai Regular" size="18.0" />
+                           </font></Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                      <children>
-                        <Label text="email" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
-                     <children>
-                        <Label text="Imagen" />
+                        <Label text="email">
+                           <font>
+                              <Font name="Dubai Regular" size="18.0" />
+                           </font></Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <TextField fx:id="nombreField" style="-fx-background-radius: 20px;" />
+                        <TextField fx:id="nombreField" style="-fx-background-radius: 20px; -fx-background-color: #d0700a;" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="apellidoField" style="-fx-background-radius: 20px;" />
+                        <TextField fx:id="apellidoField" style="-fx-background-radius: 20px; -fx-background-color: #d0700a;" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <TextField fx:id="emailField" style="-fx-background-radius: 20px;" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <children>
-                        <TextField fx:id="imagenField" style="-fx-background-radius: 20px;" />
+                        <TextField fx:id="emailField" style="-fx-background-radius: 20px; -fx-background-color: #d0700a;" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <TextField fx:id="nombreDeUsuarioField" style="-fx-background-radius: 20px;" />
+                        <TextField fx:id="nombreDeUsuarioField" style="-fx-background-radius: 20px; -fx-background-color: #d0700a;" />
                      </children>
                   </HBox>
                </children>
             </GridPane>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#handleAgreagarButton" style="-fx-background-radius: 20px;" text="Agregar" />
+                  <Button mnemonicParsing="false" onAction="#handleAgreagarButton" style="-fx-background-radius: 20px; -fx-background-color: #d0700a;" text="Agregar">
+                     <font>
+                        <Font name="Dubai Regular" size="12.0" />
+                     </font></Button>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="106.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#handleVolverButton" style="-fx-background-radius: 20px;" text="Volver" />
+                        <Button mnemonicParsing="false" onAction="#handleVolverButton" style="-fx-background-radius: 20px; -fx-background-color: #d0700a;" text="Volver">
+                           <font>
+                              <Font name="Dubai Regular" size="12.0" />
+                           </font></Button>
                      </children>
                   </HBox>
                </children>
