@@ -119,10 +119,10 @@ public class UserPaneController {
 		likeButton.setOnAction(handleButtons);
 		Button commentButton = new Button("Comentar");
 		commentButton.setStyle("-fx-background-radius: 20px;");
+		commentButton.setStyle("-fx-background-color:  #d0700a");
 		commentButton.setId("comentarBtn");
 		commentButton.setOnAction(handleButtons);
 		Button seeCommentsButton = new Button("Ver comentarios");
-		seeCommentsButton.setStyle("-fx-background-radius: 20px;");
 		seeCommentsButton.setId("seeCommentBtn");
 		seeCommentsButton.setOnAction(handleButtons);
 		postHBox.getChildren().add(likeButton);
@@ -138,13 +138,13 @@ public class UserPaneController {
 		postVBox.setAlignment(Pos.CENTER);
 		postVBox.setMinSize(350, 150);
 		postVBox.setMaxSize(350, 150);
-		postVBox.setStyle("-fx-border-color: #d6d3d0;");
+		postVBox.setStyle("-fx-border-color: #623f1b;");
 		Label postLabel = new Label();
 		postLabel.setText(comment);
 		postVBox.getChildren().add(postLabel);
 		HBox postHBox = new HBox(10);
 		postHBox.setAlignment(Pos.CENTER);
-		postHBox.setStyle("-fx-border-color: #d6d3d0;");
+		postHBox.setStyle("-fx-border-color: #623f1b;");
 		Button likeButton = new Button("Like");
 		likeButton.setStyle("-fx-background-radius: 20px;");
 		likeButton.setId("likeBtn");
