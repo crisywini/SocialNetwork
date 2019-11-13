@@ -4,9 +4,9 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="principalPane" prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: #e78217;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.redSocial.controller.PrincipalPaneController">
+<BorderPane fx:id="principalPane" prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: #12d0a5;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.redSocial.controller.PrincipalPaneController">
    <top>
-      <MenuBar style="-fx-background-radius: 20px; -fx-background-color: #d0700a;" BorderPane.alignment="CENTER">
+      <MenuBar style="-fx-background-radius: 20px; -fx-background-color: #15a786;" BorderPane.alignment="CENTER">
         <menus>
           <Menu fx:id="usersMenu" mnemonicParsing="false" text="Usuarios" />
         </menus>

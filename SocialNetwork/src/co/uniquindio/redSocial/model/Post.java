@@ -11,6 +11,7 @@ public class Post implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String id;
 	private String comment;
 	private Queue<Comment> comments;
 	private Stack<Like> likes;
@@ -26,6 +27,7 @@ public class Post implements Serializable {
 		datePost = new Date();
 		likes = new Stack<Like>();
 		loves = new Stack<Love>();
+		id = "";
 	}
 
 	/**
@@ -35,6 +37,7 @@ public class Post implements Serializable {
 	 * @param userAssociated usuario quien creo el post
 	 */
 	public Post(String comment, User userAssociated) {
+		this();
 		this.comment = comment;
 		this.userAssociated = userAssociated;
 	}
@@ -96,8 +99,16 @@ public class Post implements Serializable {
 	 */
 	public void giveALike(User liker) throws BigIndexException, EmptyLinkedListException {
 		Like newLike = new Like(liker);
+		if (likes.isEmpty()) {
+			likes.push(newLike);
+			return;
+		}
 		if (likes.contains(newLike)) {
 			Love newLove = new Love(liker);
+			if (loves.isEmpty()) {
+				loves.push(newLove);
+				return;
+			}
 			if (!loves.contains(newLove))
 				loves.push(newLove);
 		} else
@@ -109,6 +120,14 @@ public class Post implements Serializable {
 		String info = " Post: " + comment + " user: " + userAssociated.getName() + " likes: " + likes.toString()
 				+ " loves: " + loves.toString();
 		return info;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

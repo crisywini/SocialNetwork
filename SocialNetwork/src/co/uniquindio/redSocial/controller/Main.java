@@ -1,17 +1,21 @@
 package co.uniquindio.redSocial.controller;
 
 import java.io.File;
+
 import java.io.IOException;
 
 import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
 import co.uniquindio.redSocial.exceptions.NodeGraphWithLinksException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
+import co.uniquindio.redSocial.model.Mail;
 import co.uniquindio.redSocial.model.SocialNetwork;
 import co.uniquindio.redSocial.model.User;
 import co.uniquindio.redSocial.persistence.Archivo;
 import co.uniquindio.redSocial.persistence.Persistencia;
 import co.uniquindio.redSocial.util.Graph;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -22,6 +26,9 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application implements ISocialNetworkControl {
 
 	public static SocialNetwork mySocialNetwork;
+	public static ObservableList<Mail> mailsData = FXCollections.observableArrayList();
+	public static ObservableList<User> usersData = FXCollections.observableArrayList();
+	public static ObservableList<User> friendsData = FXCollections.observableArrayList();
 	static EventHandler<WindowEvent> closer = new EventHandler<WindowEvent>() {
 
 		@Override
@@ -70,7 +77,31 @@ public class Main extends Application implements ISocialNetworkControl {
 	}
 
 	public void setMySocialNetwork(SocialNetwork mySocialNetwork) {
-		this.mySocialNetwork = mySocialNetwork;
+		Main.mySocialNetwork = mySocialNetwork;
+	}
+
+	public static ObservableList<Mail> getMailsData() {
+		return mailsData;
+	}
+
+	public static void setMailsData(ObservableList<Mail> mailsData) {
+		Main.mailsData = mailsData;
+	}
+
+	public static ObservableList<User> getUsersData() {
+		return usersData;
+	}
+
+	public static void setUsersData(ObservableList<User> usersData) {
+		Main.usersData = usersData;
+	}
+
+	public static ObservableList<User> getFriendsData() {
+		return friendsData;
+	}
+
+	public static void setFriendsData(ObservableList<User> friendsData) {
+		Main.friendsData = friendsData;
 	}
 
 	// -----------------------------Persistence-------------------------

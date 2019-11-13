@@ -1,11 +1,14 @@
 package co.uniquindio.redSocial.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
 import co.uniquindio.redSocial.exceptions.NodeGraphWithLinksException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
 import co.uniquindio.redSocial.util.Graph;
+import co.uniquindio.redSocial.util.Node;
 
 /**
  * Clase principal de la logica
@@ -81,6 +84,24 @@ public class SocialNetwork implements Serializable {
 	 */
 	public User removeUser(String nick_name) throws NodeGraphWithLinksException, NodeGraphNullException {
 		return users.remove(nick_name).getValue();
+	}
+
+	/**
+	 * Metodo que permite obtener un {@link ArrayList} con el grafo de usuarios
+	 * 
+	 * @return un {@link ArrayList}
+	 */
+	public ArrayList<User> getUsersInArrayList() {
+		ArrayList<User> users = new ArrayList<User>();
+		Iterator<String> iterator = getUsers().getGraph().keySet().iterator();
+		Node<User> userAuxiliar;
+		String nick_nameUser = "";
+		while (iterator.hasNext()) {
+			nick_nameUser = iterator.next();
+			userAuxiliar = getUsers().getGraph().get(nick_nameUser);
+			users.add(userAuxiliar.getValue());
+		}
+		return users;
 	}
 
 }

@@ -28,11 +28,13 @@ public class PrincipalPaneController {
 	AnchorPane userPane;
 	BorderPane socialNetworkPane;
 	AnchorPane messagesPane;
+	AnchorPane friendsPane;
 	CreateUserPaneController createUserPaneController;
 	MenuPaneController menuPaneController;
 	UserPaneController userPaneController;
 	SocialNetworkPaneController socialNetworkPaneController;
 	MessagesPaneController messagesController;
+	FriendsPaneController friendsController;
 
 	@FXML
 	void initialize() {
@@ -74,18 +76,20 @@ public class PrincipalPaneController {
 	}
 
 	public void showUserPane(User user, BorderPane pane) {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/UserPane.fxml"));
-			userPane = (AnchorPane) loader.load();
-			UserPaneController controller = loader.getController();
-			controller.setPrincipalPane(this);
-			controller.setPane(pane);
-			controller.setUser(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		if (userPane == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(Main.class.getResource("../view/UserPane.fxml"));
+				userPane = (AnchorPane) loader.load();
+				userPaneController = loader.getController();
 
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		userPaneController.setPrincipalPane(this);
+		userPaneController.setPane(pane);
+		userPaneController.setUser(user);
 		pane.setCenter(userPane);
 	}
 
@@ -113,18 +117,35 @@ public class PrincipalPaneController {
 				loader.setLocation(Main.class.getResource("../view/MessagesPane.fxml"));
 				messagesPane = (AnchorPane) loader.load();
 				messagesController = loader.getController();
-				messagesController.setPane(pane);
-				messagesController.setUser(user);
-				messagesController.setPrincipalPane(this);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		messagesController.setPane(pane);
+		messagesController.setUser(user);
+		messagesController.setPrincipalPane(this);
 		pane.setCenter(messagesPane);
 	}
 
-	public void showAlert(String message, String header, String title, AlertType alertType) {
+	public void showFriendsPane(User user, BorderPane pane) {
+		if (friendsPane == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(Main.class.getResource("../view/FriendsPane.fxml"));
+				friendsPane = (AnchorPane) loader.load();
+				friendsController = loader.getController();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		friendsController.setPrincipalPane(this);
+		friendsController.setUser(user);
+		friendsController.setPane(pane);
+		pane.setCenter(friendsPane);
+	}
 
+	public void showAlert(String message, String header, String title, AlertType alertType) {
 		Alert alert = new Alert(alertType);
 		alert.initOwner(getPrimaryStage());
 		alert.setContentText(message);

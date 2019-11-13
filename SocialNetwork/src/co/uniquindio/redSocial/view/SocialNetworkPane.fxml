@@ -9,7 +9,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="48.0" prefWidth="700.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleVolverButton" style="-fx-background-radius: 20px; -fx-background-color: #d0700a;" text="Volver">
+            <Button mnemonicParsing="false" onAction="#handleVolverButton" style="-fx-background-radius: 20px;" text="Volver">
                <font>
                   <Font name="Dubai Regular" size="14.0" />
                </font></Button>

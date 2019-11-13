@@ -1,7 +1,6 @@
 package co.uniquindio.redSocial.controller;
 
 import java.util.ArrayList;
-
 import co.uniquindio.redSocial.exceptions.BigIndexException;
 import co.uniquindio.redSocial.exceptions.EmptyLinkedListException;
 import co.uniquindio.redSocial.model.Post;
@@ -32,16 +31,37 @@ public class UserPaneController {
 
 		@Override
 		public void handle(ActionEvent event) {
-			Button auxiliar = (Button) event.getSource();
-			if (auxiliar.getId().equals("likeBtn")) {
-
+			Button auxiliarButton = (Button) event.getSource();
+			Wall myWall = user.getMyWall();
+			Stack<Post> myPost = myWall.getPublications();
+			co.uniquindio.redSocial.util.Node<Post> auxiliar;
+			try {
+				if (!myPost.isEmpty()) {
+					boolean stopper = false;
+					auxiliar = myPost.peek();
+					while (auxiliar != null && !stopper) {
+						if (auxiliarButton.getId().contains(auxiliar.getValue().getId())) {
+							if (auxiliarButton.getId().contains("likeBtn")) {
+								auxiliar.getValue().giveALike(user);
+								principalPane.showAlert(
+										"Has dado like a: \n" + auxiliar.getValue().getComment()
+												+ "\nCantidad de likes: "
+												+ auxiliar.getValue().getLikes().getLinkedList().getSize()
+												+ "\nCantidad de loves: "
+												+ auxiliar.getValue().getLoves().getLinkedList().getSize(),
+										"", "Like", AlertType.INFORMATION);
+							}
+						}
+						if (auxiliar.getLinks().size() == 0)
+							break;
+						else
+							auxiliar = auxiliar.followLink(0);
+					}
+				}
+			} catch (EmptyLinkedListException | BigIndexException e) {
+				e.printStackTrace();
 			}
-			if (auxiliar.getId().equals("comentarBtn")) {
 
-			}
-			if (auxiliar.getId().equals("seeCommentBtn")) {
-
-			}
 		}
 	};
 	private BorderPane pane;
@@ -56,6 +76,7 @@ public class UserPaneController {
 
 	@FXML
 	void handleAmigosButton() {
+		principalPane.showFriendsPane(user, pane);
 
 	}
 
@@ -75,6 +96,7 @@ public class UserPaneController {
 			principalPane.showAlert("No tiene contenido tu post!", "", "Advertencia", AlertType.WARNING);
 		else {
 			Post newPost = new Post(postTextArea.getText(), user);
+			newPost.setId(postTextArea.getText());
 			user.getMyWall().getPublications().push(newPost);
 			postVBox.getChildren().removeAll(handlePostVBox);
 			fillObservableList(user.getMyWall());
@@ -102,35 +124,35 @@ public class UserPaneController {
 		this.principalPane = principalPane;
 	}
 
-	public VBox getComment() {
-		VBox postVBox = new VBox(70);
-		postVBox.setId("vbox" + postTextArea.getText());
-		postVBox.setAlignment(Pos.CENTER);
-		postVBox.setMinSize(350, 150);
-		postVBox.setMaxSize(350, 150);
-		postVBox.setStyle("-fx-border-color: #d6d3d0;");
-		Label postLabel = new Label();
-		postLabel.setText(postTextArea.getText());
-		postVBox.getChildren().add(postLabel);
-		HBox postHBox = new HBox(10);
-		postHBox.setAlignment(Pos.CENTER);
-		Button likeButton = new Button("Like");
-		likeButton.setStyle("-fx-background-radius: 20px;");
-		likeButton.setId("likeBtn");
-		likeButton.setOnAction(handleButtons);
-		Button commentButton = new Button("Comentar");
-		commentButton.setStyle("-fx-background-radius: 20px;");
-		commentButton.setId("comentarBtn");
-		commentButton.setOnAction(handleButtons);
-		Button seeCommentsButton = new Button("Ver comentarios");
-		seeCommentsButton.setId("seeCommentBtn");
-		seeCommentsButton.setOnAction(handleButtons);
-		postHBox.getChildren().add(likeButton);
-		postHBox.getChildren().add(commentButton);
-		postHBox.getChildren().add(seeCommentsButton);
-		postVBox.getChildren().add(postHBox);
-		return postVBox;
-	}
+//	public VBox getComment() {
+//		VBox postVBox = new VBox(70);
+//		postVBox.setId("vbox" + postTextArea.getText());
+//		postVBox.setAlignment(Pos.CENTER);
+//		postVBox.setMinSize(350, 150);
+//		postVBox.setMaxSize(350, 150);
+//		postVBox.setStyle("-fx-border-color: #d6d3d0;");
+//		Label postLabel = new Label();
+//		postLabel.setText(postTextArea.getText());
+//		postVBox.getChildren().add(postLabel);
+//		HBox postHBox = new HBox(10);
+//		postHBox.setAlignment(Pos.CENTER);
+//		Button likeButton = new Button("Like");
+//		likeButton.setStyle("-fx-background-radius: 20px;");
+//		likeButton.setId("likeBtn");
+//		likeButton.setOnAction(handleButtons);
+//		Button commentButton = new Button("Comentar");
+//		commentButton.setStyle("-fx-background-radius: 20px;");
+//		commentButton.setId("comentarBtn");
+//		commentButton.setOnAction(handleButtons);
+//		Button seeCommentsButton = new Button("Ver comentarios");
+//		seeCommentsButton.setId("seeCommentBtn");
+//		seeCommentsButton.setOnAction(handleButtons);
+//		postHBox.getChildren().add(likeButton);
+//		postHBox.getChildren().add(commentButton);
+//		postHBox.getChildren().add(seeCommentsButton);
+//		postVBox.getChildren().add(postHBox);
+//		return postVBox; 
+//	}
 
 	public VBox getComment(String comment) {
 		VBox postVBox = new VBox(70);
@@ -146,19 +168,19 @@ public class UserPaneController {
 		postHBox.setAlignment(Pos.CENTER);
 		Button likeButton = new Button("Like");
 		likeButton.setStyle("-fx-background-radius: 20px;");
-		likeButton.setId("likeBtn");
+		likeButton.setId("likeBtn" + comment);
 		likeButton.setOnAction(handleButtons);
-		Button commentButton = new Button("Comentar");
-		commentButton.setStyle("-fx-background-radius: 20px;");
-		commentButton.setId("comentarBtn");
-		commentButton.setOnAction(handleButtons);
-		Button seeCommentsButton = new Button("Ver comentarios");
-		seeCommentsButton.setStyle("-fx-background-radius: 20px;");
-		seeCommentsButton.setId("seeCommentBtn");
-		seeCommentsButton.setOnAction(handleButtons);
+//		Button commentButton = new Button("Comentar");
+//		commentButton.setStyle("-fx-background-radius: 20px;");
+//		commentButton.setId("comentarBtn" + comment);
+//		commentButton.setOnAction(handleButtons);
+//		Button seeCommentsButton = new Button("Ver comentarios");
+//		seeCommentsButton.setStyle("-fx-background-radius: 20px;");
+//		seeCommentsButton.setId("seeCommentBtn" + comment);
+//		seeCommentsButton.setOnAction(handleButtons);
 		postHBox.getChildren().add(likeButton);
-		postHBox.getChildren().add(commentButton);
-		postHBox.getChildren().add(seeCommentsButton);
+//		postHBox.getChildren().add(commentButton);
+//		postHBox.getChildren().add(seeCommentsButton);
 		postVBox.getChildren().add(postHBox);
 		return postVBox;
 	}

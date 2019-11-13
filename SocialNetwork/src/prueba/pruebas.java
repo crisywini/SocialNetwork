@@ -6,6 +6,8 @@ import co.uniquindio.redSocial.util.LinkedList;
 
 public class pruebas {
 	public static void main(String[] args) throws Exception {
-		SocialNetwork redSocial = new SocialNetwork("Criluli");
+		User holi = new User();
+		System.out.println(holi.getMailsArrayList());
+
 	}
 }

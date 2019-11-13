@@ -1,9 +1,14 @@
 package co.uniquindio.redSocial.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import co.uniquindio.redSocial.exceptions.*;
 import co.uniquindio.redSocial.util.*;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class User implements Serializable {
 	/**
@@ -40,6 +45,7 @@ public class User implements Serializable {
 		setFriends(new Graph<User>());
 		myWall = new Wall(this);
 		friendsRequest = new LinkedList<User>();
+		mails = new Stack<Mail>();
 	}
 
 	/**
@@ -51,6 +57,10 @@ public class User implements Serializable {
 
 	public String getName() {
 		return name;
+	}
+
+	public StringProperty nameProperty() {
+		return new SimpleStringProperty(getName());
 	}
 
 	public void setName(String name) {
@@ -75,6 +85,10 @@ public class User implements Serializable {
 
 	public String getNick_name() {
 		return nick_name;
+	}
+
+	public StringProperty nick_NameProperty() {
+		return new SimpleStringProperty(getNick_name());
 	}
 
 	public void setNick_name(String nick_name) {
@@ -227,6 +241,45 @@ public class User implements Serializable {
 			auxiliar = nodeUserAuxiliar.getValue();
 		}
 
+	}
+
+	/**
+	 * Metodo que permite agregar a un {@link ArrayList}
+	 * 
+	 * @return
+	 * @throws EmptyLinkedListException
+	 * @throws BigIndexException
+	 */
+	public ArrayList<Mail> getMailsArrayList() throws EmptyLinkedListException, BigIndexException {
+		ArrayList<Mail> mails = new ArrayList<Mail>();
+		Node<Mail> node = getMails().peek();
+		while (node != null) {
+			if (node.getLinks().size() != 0) {
+				node = node.followLink(0);
+				mails.add(node.getValue());
+			} else
+				break;
+		}
+		return mails;
+	}
+
+	/**
+	 * Metodo que permite agregar el grafo de amigos a un {@link ArrayList}
+	 * 
+	 * @return {@link ArrayList}
+	 */
+	public ArrayList<User> friendsInArrayList() {
+		ArrayList<User> friends = new ArrayList<User>();
+		HashMap<String, Node<User>> friendsGraph = getFriends().getGraph();
+		String nick_name = "";
+		Node<User> auxiliarFriend;
+		Iterator<String> nick_nameFriends = friendsGraph.keySet().iterator();
+		while (nick_nameFriends.hasNext()) {
+			nick_name = nick_nameFriends.next();
+			auxiliarFriend = friendsGraph.get(nick_name);
+			friends.add(auxiliarFriend.getValue());
+		}
+		return friends;
 	}
 
 	@Override

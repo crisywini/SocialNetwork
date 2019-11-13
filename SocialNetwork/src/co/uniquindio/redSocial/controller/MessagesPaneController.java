@@ -1,5 +1,7 @@
 package co.uniquindio.redSocial.controller;
 
+import co.uniquindio.redSocial.exceptions.BigIndexException;
+import co.uniquindio.redSocial.exceptions.EmptyLinkedListException;
 import co.uniquindio.redSocial.model.Mail;
 import co.uniquindio.redSocial.model.User;
 import javafx.fxml.FXML;
@@ -46,6 +48,15 @@ public class MessagesPaneController {
 	public void initMessageTV() {
 		usersTableColumn.setCellValueFactory(cellData -> cellData.getValue().transmitterNickNameProperty());
 		messagesTableColumn.setCellValueFactory(cellData -> cellData.getValue().messageProperty());
+		try {
+			Main.mailsData.clear();
+			if (!user.getMails().isEmpty()) {
+				Main.mailsData.setAll(user.getMailsArrayList());
+				messagesTableView.setItems(Main.mailsData);
+			}
+		} catch (EmptyLinkedListException | BigIndexException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public PrincipalPaneController getPrincipalPane() {
@@ -63,6 +74,7 @@ public class MessagesPaneController {
 	public void setUser(User user) {
 		this.user = user;
 		nickNameLabel.setText(user.getNick_name());
+		initMessageTV();
 	}
 
 	public BorderPane getPane() {

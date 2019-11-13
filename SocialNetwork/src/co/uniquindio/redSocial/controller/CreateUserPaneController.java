@@ -1,5 +1,8 @@
 package co.uniquindio.redSocial.controller;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
@@ -71,6 +74,17 @@ public class CreateUserPaneController {
 
 		if (emailField.getText().length() == 0 || emailField.getText() == null) {
 			errorMessage += "Debe ingresar el correo electronico.\n";
+		}
+		else
+		{
+			Pattern pattern = Pattern
+	                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+	                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+	        String email = emailField.getText();
+	        Matcher mather = pattern.matcher(email);
+
+	        if (!mather.find())
+	        	errorMessage += "El correo: "+email+" no es vFalido.\n";
 		}
 		if (nombreField.getText().length() == 0 || nombreField.getText() == null) {
 			errorMessage += "Debe ingresar el nombre.\n";

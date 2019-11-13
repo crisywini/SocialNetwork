@@ -42,7 +42,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="164.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleCrearNuevoUsuarioButton" style="-fx-background-radius: 20px; -fx-background-color: #d0700a;" text="Crear nuevo usuario">
+                              <Button mnemonicParsing="false" onAction="#handleCrearNuevoUsuarioButton" style="-fx-background-radius: 20px;" text="Crear nuevo usuario">
                                  <font>
                                     <Font name="Dubai Regular" size="13.0" />
                                  </font></Button>
@@ -50,7 +50,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleIngresarACriluliButton" style="-fx-background-radius: 20px; -fx-background-color: #d0700a;" text="Ingresar a Criluli">
+                              <Button mnemonicParsing="false" onAction="#handleIngresarACriluliButton" style="-fx-background-radius: 20px;" text="Ingresar a Criluli">
                                  <font>
                                     <Font name="Dubai Regular" size="13.0" />
                                  </font></Button>

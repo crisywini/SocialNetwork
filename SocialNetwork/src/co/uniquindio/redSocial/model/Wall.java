@@ -45,5 +45,9 @@ public class Wall implements Serializable {
 	public void setUserAssociated(User userAssociated) {
 		this.userAssociated = userAssociated;
 	}
+	@Override
+	public String toString() {
+		return getPublications()+"";
+	}
 
 }

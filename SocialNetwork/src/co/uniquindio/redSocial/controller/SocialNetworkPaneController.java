@@ -2,6 +2,7 @@ package co.uniquindio.redSocial.controller;
 
 import java.util.ArrayList;
 
+
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -9,12 +10,9 @@ import co.uniquindio.redSocial.model.SocialNetwork;
 import co.uniquindio.redSocial.model.User;
 import co.uniquindio.redSocial.util.Graph;
 import co.uniquindio.redSocial.util.Node;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
