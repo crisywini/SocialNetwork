@@ -44,6 +44,9 @@ public class FriendsPaneController {
 			User friendSelected = friendsTableView.getSelectionModel().getSelectedItem();
 			try {
 				user.blockFriend(friendSelected);
+				principalPane.showAlert("Has bloqueado al usuario: " + friendSelected.getNick_name(), "", "Informacion",
+						AlertType.WARNING);
+				friendsTableView.getItems().remove(friendSelected);
 			} catch (NodeGraphNullException e) {
 				e.printStackTrace();
 			} catch (NodeNotConnectedException e) {
@@ -138,6 +141,7 @@ public class FriendsPaneController {
 
 	public void setUser(User user) {
 		this.user = user;
+		nickNameUserLabel.setText(user.getNick_name());
 		fillFriendsTableView();
 	}
 

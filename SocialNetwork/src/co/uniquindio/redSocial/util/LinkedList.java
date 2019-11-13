@@ -125,10 +125,12 @@ public class LinkedList<T> implements Serializable {
 			node = null;
 		} else {
 			while (node != null) {
-				if (node.followLink(0).getValue().equals(value)) {
-					Node<T> aux = node.followLink(0);
-					node.connectNode(aux.followLink(0), 0);
-					break;
+				if (node.followLink(0).getLinks().size() > 0) {
+					if (node.followLink(0).getValue().equals(value)) {
+						Node<T> aux = node.followLink(0);
+						node.connectNode(aux.followLink(0), 0);
+						break;
+					}
 				}
 				if (node.getLinks().size() > 0) {
 					node = node.followLink(0);

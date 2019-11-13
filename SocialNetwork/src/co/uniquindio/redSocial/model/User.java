@@ -197,8 +197,10 @@ public class User implements Serializable {
 	 */
 	public void blockFriend(User blockFriend)
 			throws NodeGraphNullException, NodeNotConnectedException, BigIndexException {
-		blockedFriends.addFirst(blockFriend);
-		friends.disconnect(nick_name, blockFriend.getNick_name());
+		if (!blockedFriends.isOnList(blockFriend)) {
+			blockedFriends.addFirst(blockFriend);
+			friends.disconnect(nick_name, blockFriend.getNick_name());
+		}
 	}
 
 	/**
