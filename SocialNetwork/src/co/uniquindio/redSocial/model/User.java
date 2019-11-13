@@ -284,8 +284,11 @@ public class User implements Serializable {
 			Mail newMail = new Mail(message, this, auxiliar);
 			this.mails.push(newMail);
 			auxiliar.mails.push(newMail);
-			nodeUserAuxiliar = nodeUserAuxiliar.followLink(0);
-			auxiliar = nodeUserAuxiliar.getValue();
+			if (nodeUserAuxiliar.getLinks().size() > 0) {
+				nodeUserAuxiliar = nodeUserAuxiliar.followLink(0);
+				auxiliar = nodeUserAuxiliar.getValue();
+			} else
+				break;
 		}
 	}
 
@@ -323,9 +326,9 @@ public class User implements Serializable {
 		ArrayList<Mail> mails = new ArrayList<Mail>();
 		Node<Mail> node = getMails().peek();
 		while (node != null) {
+			mails.add(node.getValue());
 			if (node.getLinks().size() != 0) {
 				node = node.followLink(0);
-				mails.add(node.getValue());
 			} else
 				break;
 		}

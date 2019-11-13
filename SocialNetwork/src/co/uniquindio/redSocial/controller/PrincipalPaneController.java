@@ -31,6 +31,7 @@ public class PrincipalPaneController {
 	AnchorPane friendsPane;
 	AnchorPane requestedPane;
 	AnchorPane blockedFriendsPane;
+	AnchorPane createNewMailPane;
 	CreateUserPaneController createUserPaneController;
 	MenuPaneController menuPaneController;
 	UserPaneController userPaneController;
@@ -39,6 +40,7 @@ public class PrincipalPaneController {
 	FriendsPaneController friendsController;
 	RequestedFriendsPaneController requestedFriendsController;
 	BlockedFriendsPaneController blockedController;
+	CreateNewMailPaneController createNewMailPaneController;
 
 	@FXML
 	void initialize() {
@@ -181,6 +183,23 @@ public class PrincipalPaneController {
 		blockedController.setUser(user);
 		blockedController.setPrincipalPane(this);
 		pane.setCenter(blockedFriendsPane);
+	}
+
+	public void showCreateNewMailPane(User user, BorderPane pane) {
+		if (createNewMailPane == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(Main.class.getResource("../view/CreateNewMailPane.fxml"));
+				createNewMailPane = (AnchorPane) loader.load();
+				createNewMailPaneController = loader.getController();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		createNewMailPaneController.setPane(pane);
+		createNewMailPaneController.setUser(user);
+		createNewMailPaneController.setPrincipalPane(this);
+		pane.setCenter(createNewMailPane);
 	}
 
 	public void showAlert(String message, String header, String title, AlertType alertType) {

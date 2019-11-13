@@ -48,7 +48,10 @@ public class FriendsPaneController {
 					principalPane.showAlert("Has bloqueado al usuario: " + friendSelected.getNick_name(), "",
 							"Informacion", AlertType.WARNING);
 					friendsTableView.getItems().remove(friendSelected);
-				}
+				} else
+					principalPane.showAlert("Debes seleccionar a alguien diferente a ti", "", "ADVERTENCIA",
+							AlertType.WARNING);
+
 			} catch (NodeGraphNullException e) {
 				e.printStackTrace();
 			} catch (NodeNotConnectedException e) {
@@ -71,7 +74,9 @@ public class FriendsPaneController {
 					principalPane.showAlert("Has eliminado al usuario: " + friendSelected.getNick_name(), "",
 							"Informacion", AlertType.WARNING);
 					friendsTableView.getItems().remove(friendSelected);
-				}
+				} else
+					principalPane.showAlert("Debes seleccionar a alguien diferente a ti", "", "ADVERTENCIA",
+							AlertType.WARNING);
 			} catch (NodeGraphWithLinksException e) {
 				e.printStackTrace();
 			} catch (NodeGraphNullException e) {
@@ -86,9 +91,15 @@ public class FriendsPaneController {
 		if (isSelectedUser()) {
 			User userSelected = usersTableView.getSelectionModel().getSelectedItem();
 			try {
-				user.sendRequest(userSelected);
-				principalPane.showAlert("Has enviado la solicitud a: " + userSelected.getNick_name(), "", "Informacion",
-						AlertType.INFORMATION);
+				if (!userSelected.getNick_name().equals(user.getNick_name())) {
+
+					user.sendRequest(userSelected);
+					principalPane.showAlert("Has enviado la solicitud a: " + userSelected.getNick_name(), "",
+							"Informacion", AlertType.INFORMATION);
+				} else
+					principalPane.showAlert("Debes seleccionar a alguien diferente a ti", "", "ADVERTENCIA",
+							AlertType.WARNING);
+
 			} catch (BigIndexException e) {
 				e.printStackTrace();
 			} catch (NodeRepeatException e) {

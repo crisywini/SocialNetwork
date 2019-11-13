@@ -89,5 +89,4 @@ public class Mail implements Serializable {
 	public StringProperty messageProperty() {
 		return new SimpleStringProperty(message);
 	}
-
 }

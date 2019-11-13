@@ -34,7 +34,7 @@ public class MessagesPaneController {
 
 	@FXML
 	void handleSendNewMessageButton() {
-
+		principalPane.showCreateNewMailPane(user, pane);
 	}
 
 	@FXML
@@ -49,8 +49,8 @@ public class MessagesPaneController {
 		usersTableColumn.setCellValueFactory(cellData -> cellData.getValue().transmitterNickNameProperty());
 		messagesTableColumn.setCellValueFactory(cellData -> cellData.getValue().messageProperty());
 		try {
-			Main.mailsData.clear();
 			if (!user.getMails().isEmpty()) {
+				Main.mailsData.clear();
 				Main.mailsData.setAll(user.getMailsArrayList());
 				messagesTableView.setItems(Main.mailsData);
 			}

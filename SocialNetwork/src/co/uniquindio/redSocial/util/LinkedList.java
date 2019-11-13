@@ -138,7 +138,14 @@ public class LinkedList<T> implements Serializable {
 					break;
 			}
 		}
+	}
 
+	/**
+	 * Metodo que permite limpiar toda la lista
+	 */
+	public void clear() {
+		first = null;
+		last = null;
 	}
 
 	public boolean isEmpty() {
