@@ -5,7 +5,7 @@ import java.io.Serializable;
 import co.uniquindio.redSocial.exceptions.BigIndexException;
 import co.uniquindio.redSocial.exceptions.EmptyLinkedListException;
 
-public class LinkedList<T> implements Serializable{
+public class LinkedList<T> implements Serializable {
 	/**
 	 * 
 	 */
@@ -102,7 +102,10 @@ public class LinkedList<T> implements Serializable{
 		while (auxiliar != null && !exist) {
 			if (auxiliar.getValue().equals(value))
 				exist = true;
-			auxiliar = auxiliar.followLink(0);
+			if (auxiliar.getLinks().size() > 0) {
+				auxiliar = auxiliar.followLink(0);
+			} else
+				break;
 		}
 		return exist;
 	}
@@ -115,21 +118,25 @@ public class LinkedList<T> implements Serializable{
 	 */
 	public void remove(T value) throws BigIndexException {
 		Node<T> node = first;
-		if (size == 1 && node.getValue().equals(value)) {
+		if (getSize() == 1 && node.getValue().equals(value)) {
 			first = null;
-		} else if (node.getValue().equals(value) && size > 1) {
-			first = node.followLink(0);
+		} else if (node.getValue().equals(value) && first.getLinks().size() > 1) {
+			first = first.followLink(0);
 			node = null;
 		} else {
-			for (int i = 0; i < size; i++) {
+			while (node != null) {
 				if (node.followLink(0).getValue().equals(value)) {
 					Node<T> aux = node.followLink(0);
 					node.connectNode(aux.followLink(0), 0);
 					break;
 				}
-				node = node.followLink(0);
+				if (node.getLinks().size() > 0) {
+					node = node.followLink(0);
+				} else
+					break;
 			}
 		}
+
 	}
 
 	public boolean isEmpty() {

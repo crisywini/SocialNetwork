@@ -77,12 +77,11 @@ public class UserPaneController {
 	@FXML
 	void handleAmigosButton() {
 		principalPane.showFriendsPane(user, pane);
-
 	}
 
 	@FXML
 	void handleBloqueadosButton() {
-
+		principalPane.showBlockedFriendsPane(user, pane);
 	}
 
 	@FXML
@@ -107,7 +106,7 @@ public class UserPaneController {
 
 	@FXML
 	void handleSolicitudesButton() {
-
+		principalPane.showRequestedFriendsPane(user, pane);
 	}
 
 	@FXML

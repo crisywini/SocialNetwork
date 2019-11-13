@@ -51,7 +51,6 @@ public class FriendsPaneController {
 			} catch (BigIndexException e) {
 				e.printStackTrace();
 			}
-
 		} else
 			principalPane.showAlert("Debes seleccionar a algún amigo", "", "ADVERTENCIA", AlertType.WARNING);
 
@@ -63,6 +62,9 @@ public class FriendsPaneController {
 			User friendSelected = friendsTableView.getSelectionModel().getSelectedItem();
 			try {
 				user.removeFriend(friendSelected);
+				principalPane.showAlert("Has eliminado al usuario: " + friendSelected.getNick_name(), "", "Informacion",
+						AlertType.WARNING);
+				friendsTableView.getItems().remove(friendSelected);
 			} catch (NodeGraphWithLinksException e) {
 				e.printStackTrace();
 			} catch (NodeGraphNullException e) {
@@ -78,7 +80,7 @@ public class FriendsPaneController {
 			User userSelected = usersTableView.getSelectionModel().getSelectedItem();
 			try {
 				user.sendRequest(userSelected);
-				principalPane.showAlert("Has enviado la solicitud a: " + user.getNick_name(), "", "Informacion",
+				principalPane.showAlert("Has enviado la solicitud a: " + userSelected.getNick_name(), "", "Informacion",
 						AlertType.INFORMATION);
 			} catch (BigIndexException e) {
 				e.printStackTrace();

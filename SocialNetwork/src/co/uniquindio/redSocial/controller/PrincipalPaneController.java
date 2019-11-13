@@ -29,12 +29,16 @@ public class PrincipalPaneController {
 	BorderPane socialNetworkPane;
 	AnchorPane messagesPane;
 	AnchorPane friendsPane;
+	AnchorPane requestedPane;
+	AnchorPane blockedFriendsPane;
 	CreateUserPaneController createUserPaneController;
 	MenuPaneController menuPaneController;
 	UserPaneController userPaneController;
 	SocialNetworkPaneController socialNetworkPaneController;
 	MessagesPaneController messagesController;
 	FriendsPaneController friendsController;
+	RequestedFriendsPaneController requestedFriendsController;
+	BlockedFriendsPaneController blockedController;
 
 	@FXML
 	void initialize() {
@@ -143,6 +147,40 @@ public class PrincipalPaneController {
 		friendsController.setUser(user);
 		friendsController.setPane(pane);
 		pane.setCenter(friendsPane);
+	}
+
+	public void showRequestedFriendsPane(User user, BorderPane pane) {
+		if (requestedPane == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(Main.class.getResource("../view/RequestedFriendsPane.fxml"));
+				requestedPane = (AnchorPane) loader.load();
+				requestedFriendsController = loader.getController();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		requestedFriendsController.setPane(pane);
+		requestedFriendsController.setUser(user);
+		requestedFriendsController.setPrincipalPane(this);
+		pane.setCenter(requestedPane);
+	}
+
+	public void showBlockedFriendsPane(User user, BorderPane pane) {
+		if (blockedFriendsPane == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(Main.class.getResource("../view/BlockedFriendsPane.fxml"));
+				blockedFriendsPane = (AnchorPane) loader.load();
+				blockedController = loader.getController();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		blockedController.setPane(pane);
+		blockedController.setUser(user);
+		blockedController.setPrincipalPane(this);
+		pane.setCenter(blockedFriendsPane);
 	}
 
 	public void showAlert(String message, String header, String title, AlertType alertType) {

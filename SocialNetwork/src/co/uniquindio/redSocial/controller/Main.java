@@ -29,6 +29,8 @@ public class Main extends Application implements ISocialNetworkControl {
 	public static ObservableList<Mail> mailsData = FXCollections.observableArrayList();
 	public static ObservableList<User> usersData = FXCollections.observableArrayList();
 	public static ObservableList<User> friendsData = FXCollections.observableArrayList();
+	public static ObservableList<User> requestedFriendsData = FXCollections.observableArrayList();
+	public static ObservableList<User> blockedFriendsData = FXCollections.observableArrayList();
 	static EventHandler<WindowEvent> closer = new EventHandler<WindowEvent>() {
 
 		@Override
@@ -102,6 +104,22 @@ public class Main extends Application implements ISocialNetworkControl {
 
 	public static void setFriendsData(ObservableList<User> friendsData) {
 		Main.friendsData = friendsData;
+	}
+
+	public static ObservableList<User> getRequestedFriendsData() {
+		return requestedFriendsData;
+	}
+
+	public static void setRequestedFriendsData(ObservableList<User> requestedFriendsData) {
+		Main.requestedFriendsData = requestedFriendsData;
+	}
+
+	public static ObservableList<User> getBlockedFriendsData() {
+		return blockedFriendsData;
+	}
+
+	public static void setBlockedFriendsData(ObservableList<User> blockedFriendsData) {
+		Main.blockedFriendsData = blockedFriendsData;
 	}
 
 	// -----------------------------Persistence-------------------------

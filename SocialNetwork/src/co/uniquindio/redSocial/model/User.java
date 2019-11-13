@@ -45,6 +45,7 @@ public class User implements Serializable {
 		setFriends(new Graph<User>());
 		myWall = new Wall(this);
 		friendsRequest = new LinkedList<User>();
+		blockedFriends = new LinkedList<User>();
 		mails = new Stack<Mail>();
 	}
 
@@ -159,8 +160,12 @@ public class User implements Serializable {
 	 *                             de amistad
 	 */
 	public void sendRequest(User user) throws BigIndexException, NodeRepeatException {
-		if (!user.getFriendsRequest().isOnList(user)) {
-			user.getFriendsRequest().addLast(user);
+		if (user.getFriendsRequest().getSize() == 0) {
+			user.getFriendsRequest().addLast(this);
+			return;
+		}
+		if (!user.getFriendsRequest().isOnList(this)) {
+			user.getFriendsRequest().addLast(this);
 		} else
 			throw new NodeRepeatException("Ya enviaste la solicitud de amistad a: " + user.getNick_name());
 	}
@@ -206,6 +211,8 @@ public class User implements Serializable {
 	 *                                  amigos bloqueados
 	 */
 	public void unblockFriend(User friend) throws BigIndexException, NodeRepeatException, UnblockedFriendException {
+		if (blockedFriends.isEmpty())
+			return;
 		if (blockedFriends.isOnList(friend)) {
 			blockedFriends.remove(friend);
 			friends.addNode(friend.getNick_name(), friend);
@@ -277,6 +284,16 @@ public class User implements Serializable {
 	}
 
 	/**
+	 * Metodo que permite eliminar un usuario de la lista de solicitudes de amistad
+	 * 
+	 * @param user a ser eliminado de las solicitudes de amistad
+	 * @throws BigIndexException de la clase Node
+	 */
+	public void removeRequest(User user) throws BigIndexException {
+		friendsRequest.remove(user);
+	}
+
+	/**
 	 * Metodo que permite obtener un {@link ArrayList} con los mails
 	 * 
 	 * @return un {@link ArrayList}
@@ -315,16 +332,55 @@ public class User implements Serializable {
 		return friends;
 	}
 
+	/**
+	 * Metodo que permite agregar a un {@link ArrayList} las solicitudes de amistad
+	 * 
+	 * @return un {@link ArrayList} con la informacion de las solicitudes de amistad
+	 * @throws BigIndexException de la clase {@link Node}
+	 */
+	public ArrayList<User> getRequestedFriendsInList() throws BigIndexException {
+		ArrayList<User> requestedFriends = new ArrayList<User>();
+		Node<User> current = getFriendsRequest().getFirst();
+		while (current != null) {
+			requestedFriends.add(current.getValue());
+			if (current.getLinks().size() > 0)
+				current = current.followLink(0);
+			else
+				break;
+		}
+		return requestedFriends;
+	}
+
+	/**
+	 * Metodo que permite obtener un {@link ArrayList} con la informacion de los
+	 * usuarios bloqueados
+	 * 
+	 * @return un {@link ArrayList} con la informacion de los usuarios bloqueados
+	 * @throws BigIndexException de la clase nodo
+	 */
+	public ArrayList<User> getBlockedFriendsInList() throws BigIndexException {
+		ArrayList<User> blockedFriends = new ArrayList<User>();
+		Node<User> current = getBlockedFriends().getFirst();
+		while (current != null) {
+			blockedFriends.add(current.getValue());
+			if (current.getLinks().size() > 0)
+				current = current.followLink(0);
+			else
+				break;
+		}
+		return blockedFriends;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
-		boolean isEquals = false;
+		boolean isEqual = false;
 		User auxiliar;
 		if (obj instanceof User) {
 			auxiliar = (User) obj;
 			if (auxiliar.getNick_name().equals(this.getNick_name()))
-				isEquals = true;
+				isEqual = true;
 		}
-		return isEquals;
+		return isEqual;
 	}
 
 }
