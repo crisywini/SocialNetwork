@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import co.uniquindio.redSocial.exceptions.BigIndexException;
 
-public class Node<T> implements Serializable{
+public class Node<T> implements Serializable {
 	/**
 	 * 
 	 */
@@ -136,7 +136,7 @@ public class Node<T> implements Serializable{
 		Node<T> auxiliar;
 		for (int i = 0; i < links.size() && !isOnLinks; i++) {
 			auxiliar = links.get(i);
-			if (auxiliar.equals(node)) {
+			if (auxiliar.getValue().equals(node.getValue())) {
 				index = i;
 				isOnLinks = true;
 			}

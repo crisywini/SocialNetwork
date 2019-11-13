@@ -43,10 +43,12 @@ public class FriendsPaneController {
 		if (isSelectedFriend()) {
 			User friendSelected = friendsTableView.getSelectionModel().getSelectedItem();
 			try {
-				user.blockFriend(friendSelected);
-				principalPane.showAlert("Has bloqueado al usuario: " + friendSelected.getNick_name(), "", "Informacion",
-						AlertType.WARNING);
-				friendsTableView.getItems().remove(friendSelected);
+				if (!friendSelected.getNick_name().equals(user.getNick_name())) {
+					user.blockFriend(friendSelected);
+					principalPane.showAlert("Has bloqueado al usuario: " + friendSelected.getNick_name(), "",
+							"Informacion", AlertType.WARNING);
+					friendsTableView.getItems().remove(friendSelected);
+				}
 			} catch (NodeGraphNullException e) {
 				e.printStackTrace();
 			} catch (NodeNotConnectedException e) {
@@ -64,10 +66,12 @@ public class FriendsPaneController {
 		if (isSelectedFriend()) {
 			User friendSelected = friendsTableView.getSelectionModel().getSelectedItem();
 			try {
-				user.removeFriend(friendSelected);
-				principalPane.showAlert("Has eliminado al usuario: " + friendSelected.getNick_name(), "", "Informacion",
-						AlertType.WARNING);
-				friendsTableView.getItems().remove(friendSelected);
+				if (!friendSelected.getNick_name().equals(user.getNick_name())) {
+					user.removeFriend(friendSelected);
+					principalPane.showAlert("Has eliminado al usuario: " + friendSelected.getNick_name(), "",
+							"Informacion", AlertType.WARNING);
+					friendsTableView.getItems().remove(friendSelected);
+				}
 			} catch (NodeGraphWithLinksException e) {
 				e.printStackTrace();
 			} catch (NodeGraphNullException e) {

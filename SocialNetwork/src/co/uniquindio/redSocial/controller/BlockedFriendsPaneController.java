@@ -1,6 +1,7 @@
 package co.uniquindio.redSocial.controller;
 
 import co.uniquindio.redSocial.exceptions.BigIndexException;
+import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
 import co.uniquindio.redSocial.exceptions.UnblockedFriendException;
 import co.uniquindio.redSocial.model.User;
@@ -47,6 +48,8 @@ public class BlockedFriendsPaneController {
 				e.printStackTrace();
 			} catch (UnblockedFriendException e) {
 				principalPane.showAlert(e.getMessage(), "", "ERROR", AlertType.ERROR);
+			} catch (NodeGraphNullException e) {
+				e.printStackTrace();
 			}
 		} else
 			principalPane.showAlert("Debes seleccionar algún usuario!", "", "ADVERTENCIA", AlertType.WARNING);

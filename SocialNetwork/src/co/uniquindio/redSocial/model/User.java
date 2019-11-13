@@ -47,6 +47,11 @@ public class User implements Serializable {
 		friendsRequest = new LinkedList<User>();
 		blockedFriends = new LinkedList<User>();
 		mails = new Stack<Mail>();
+		try {
+			friends.addNode(getNick_name(), this);
+		} catch (NodeRepeatException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -174,13 +179,16 @@ public class User implements Serializable {
 	 * Metodo para aceptar una solicitud de amistad
 	 * 
 	 * @param friend amigo solicitante
-	 * @throws BigIndexException   de la clase nodo
-	 * @throws NodeRepeatException de la clase LinkedList
-	 * @throws NotFriendsException si no tienes solicitud de amistad de ese amigo
+	 * @throws BigIndexException      de la clase nodo
+	 * @throws NodeRepeatException    de la clase LinkedList
+	 * @throws NotFriendsException    si no tienes solicitud de amistad de ese amigo
+	 * @throws NodeGraphNullException
 	 */
-	public void acceptRequest(User friend) throws BigIndexException, NodeRepeatException, NotFriendsException {
+	public void acceptRequest(User friend)
+			throws BigIndexException, NodeRepeatException, NotFriendsException, NodeGraphNullException {
 		if (friendsRequest.isOnList(friend)) {
 			friends.addNode(friend.getNick_name(), friend);
+			friends.connectWithAnotherNode(nick_name, friend.getNick_name());
 			friendsRequest.remove(friend);
 		} else {
 			throw new NotFriendsException("No tienes una solicitud de amistad de: " + friend.getNick_name());
@@ -197,9 +205,14 @@ public class User implements Serializable {
 	 */
 	public void blockFriend(User blockFriend)
 			throws NodeGraphNullException, NodeNotConnectedException, BigIndexException {
-		if (!blockedFriends.isOnList(blockFriend)) {
+		if (blockedFriends.isEmpty()) {
 			blockedFriends.addFirst(blockFriend);
 			friends.disconnect(nick_name, blockFriend.getNick_name());
+		} else {
+			if (!blockedFriends.isOnList(blockFriend)) {
+				blockedFriends.addFirst(blockFriend);
+				friends.disconnect(nick_name, blockFriend.getNick_name());
+			}
 		}
 	}
 
@@ -211,13 +224,15 @@ public class User implements Serializable {
 	 * @throws NodeRepeatException      de la clase {@link LinkedList}
 	 * @throws UnblockedFriendException si la persona no se encuentra en la lista de
 	 *                                  amigos bloqueados
+	 * @throws NodeGraphNullException
 	 */
-	public void unblockFriend(User friend) throws BigIndexException, NodeRepeatException, UnblockedFriendException {
+	public void unblockFriend(User friend)
+			throws BigIndexException, NodeRepeatException, UnblockedFriendException, NodeGraphNullException {
 		if (blockedFriends.isEmpty())
 			return;
 		if (blockedFriends.isOnList(friend)) {
 			blockedFriends.remove(friend);
-			friends.addNode(friend.getNick_name(), friend);
+			friends.connectWithAnotherNode(nick_name, friend.getNick_name());
 		} else
 			throw new UnblockedFriendException("No tienes el usuario: " + friend.getNick_name() + " bloqueado!");
 
@@ -282,7 +297,9 @@ public class User implements Serializable {
 	 * @throws NodeGraphNullException      de la clase Graph
 	 */
 	public void removeFriend(User friend) throws NodeGraphWithLinksException, NodeGraphNullException {
-		friends.remove(friend.getNick_name());
+		if (!friend.getNick_name().equals(nick_name)) {
+			friends.remove(friend.getNick_name());
+		}
 	}
 
 	/**

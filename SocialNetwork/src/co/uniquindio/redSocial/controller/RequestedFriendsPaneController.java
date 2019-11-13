@@ -1,6 +1,7 @@
 package co.uniquindio.redSocial.controller;
 
 import co.uniquindio.redSocial.exceptions.BigIndexException;
+import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
 import co.uniquindio.redSocial.exceptions.NotFriendsException;
 import co.uniquindio.redSocial.model.User;
@@ -42,6 +43,8 @@ public class RequestedFriendsPaneController {
 			} catch (NodeRepeatException e) {
 				principalPane.showAlert(e.getMessage(), "", "ERROR", AlertType.ERROR);
 			} catch (NotFriendsException e) {
+				e.printStackTrace();
+			} catch (NodeGraphNullException e) {
 				e.printStackTrace();
 			}
 		} else

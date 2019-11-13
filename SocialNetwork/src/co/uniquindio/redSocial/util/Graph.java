@@ -117,8 +117,6 @@ public class Graph<T> implements Serializable {
 	public void disconnect(String originName, String destinyName)
 			throws NodeGraphNullException, NodeNotConnectedException, BigIndexException {
 		if (!isOnGraph(originName) || !isOnGraph(destinyName)) {
-			System.out.println(graph.get(originName));
-			System.out.println(graph.get(destinyName));
 			throw new NodeGraphNullException(
 					"El nodo: " + originName + " o el nodo: " + destinyName + " no se encuentran en el grafo");
 		}
