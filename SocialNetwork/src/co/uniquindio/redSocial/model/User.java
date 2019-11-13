@@ -127,6 +127,14 @@ public class User implements Serializable {
 		this.mails = mails;
 	}
 
+	public LinkedList<User> getFriendsRequest() {
+		return friendsRequest;
+	}
+
+	public void setFriendsRequest(LinkedList<User> friendsRequest) {
+		this.friendsRequest = friendsRequest;
+	}
+
 	/**
 	 * Metodo que permite agregar un amigo
 	 * 
@@ -140,6 +148,21 @@ public class User implements Serializable {
 		else
 			throw new MaxNumberFriendsException("Superas la cantidad de amigos, no puedes tener mas!");
 
+	}
+
+	/**
+	 * Metodo que permite enviar una solicitud de amistad a un usuario
+	 * 
+	 * @param user a quien se le enviara una solicitud de amistad
+	 * @throws BigIndexException   de la clase lista
+	 * @throws NodeRepeatException si el usuario ya esta en la lista de solicitudes
+	 *                             de amistad
+	 */
+	public void sendRequest(User user) throws BigIndexException, NodeRepeatException {
+		if (!user.getFriendsRequest().isOnList(user)) {
+			user.getFriendsRequest().addLast(user);
+		} else
+			throw new NodeRepeatException("Ya enviaste la solicitud de amistad a: " + user.getNick_name());
 	}
 
 	/**
@@ -240,13 +263,23 @@ public class User implements Serializable {
 			nodeUserAuxiliar = nodeUserAuxiliar.followLink(0);
 			auxiliar = nodeUserAuxiliar.getValue();
 		}
-
 	}
 
 	/**
-	 * Metodo que permite agregar a un {@link ArrayList}
+	 * Metodo que permite eliminar a un amigo del grafo de amigos
 	 * 
-	 * @return
+	 * @param friend a ser eliminado
+	 * @throws NodeGraphWithLinksException de la clase Graph
+	 * @throws NodeGraphNullException      de la clase Graph
+	 */
+	public void removeFriend(User friend) throws NodeGraphWithLinksException, NodeGraphNullException {
+		friends.remove(friend.getNick_name());
+	}
+
+	/**
+	 * Metodo que permite obtener un {@link ArrayList} con los mails
+	 * 
+	 * @return un {@link ArrayList}
 	 * @throws EmptyLinkedListException
 	 * @throws BigIndexException
 	 */

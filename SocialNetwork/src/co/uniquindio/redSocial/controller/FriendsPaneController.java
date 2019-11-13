@@ -1,5 +1,10 @@
 package co.uniquindio.redSocial.controller;
 
+import co.uniquindio.redSocial.exceptions.BigIndexException;
+import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
+import co.uniquindio.redSocial.exceptions.NodeGraphWithLinksException;
+import co.uniquindio.redSocial.exceptions.NodeNotConnectedException;
+import co.uniquindio.redSocial.exceptions.NodeRepeatException;
 import co.uniquindio.redSocial.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
@@ -36,6 +41,16 @@ public class FriendsPaneController {
 	@FXML
 	void handleBlockFriendButton() {
 		if (isSelectedFriend()) {
+			User friendSelected = friendsTableView.getSelectionModel().getSelectedItem();
+			try {
+				user.blockFriend(friendSelected);
+			} catch (NodeGraphNullException e) {
+				e.printStackTrace();
+			} catch (NodeNotConnectedException e) {
+				principalPane.showAlert(e.getMessage(), "", "ERROR", AlertType.ERROR);
+			} catch (BigIndexException e) {
+				e.printStackTrace();
+			}
 
 		} else
 			principalPane.showAlert("Debes seleccionar a algún amigo", "", "ADVERTENCIA", AlertType.WARNING);
@@ -45,7 +60,14 @@ public class FriendsPaneController {
 	@FXML
 	void handleRemoveFriendButton() {
 		if (isSelectedFriend()) {
-
+			User friendSelected = friendsTableView.getSelectionModel().getSelectedItem();
+			try {
+				user.removeFriend(friendSelected);
+			} catch (NodeGraphWithLinksException e) {
+				e.printStackTrace();
+			} catch (NodeGraphNullException e) {
+				principalPane.showAlert(e.getMessage(), "", "ERROR", AlertType.ERROR);
+			}
 		} else
 			principalPane.showAlert("Debes sleccionar a a algún amigo", "", "ADVERTENCIA", AlertType.WARNING);
 	}
@@ -53,7 +75,16 @@ public class FriendsPaneController {
 	@FXML
 	void handleSendRequestButton() {
 		if (isSelectedUser()) {
-
+			User userSelected = usersTableView.getSelectionModel().getSelectedItem();
+			try {
+				user.sendRequest(userSelected);
+				principalPane.showAlert("Has enviado la solicitud a: " + user.getNick_name(), "", "Informacion",
+						AlertType.INFORMATION);
+			} catch (BigIndexException e) {
+				e.printStackTrace();
+			} catch (NodeRepeatException e) {
+				principalPane.showAlert(e.getMessage(), "", "ERROR", AlertType.ERROR);
+			}
 		} else
 			principalPane.showAlert("Debes seleccionar a algún Usuario", "", "ADVERTENCIA", AlertType.WARNING);
 	}
@@ -87,6 +118,7 @@ public class FriendsPaneController {
 		nameUsersTableColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		Main.usersData.clear();
 		Main.usersData.setAll(principalPane.getMain().getMySocialNetwork().getUsersInArrayList());
+		usersTableView.setItems(Main.usersData);
 	}
 
 	public PrincipalPaneController getPrincipalPane() {
