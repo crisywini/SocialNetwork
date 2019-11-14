@@ -18,7 +18,7 @@
          <children>
             <ImageView fitHeight="158.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="file:///C:/Users/g40/Documents/SocialNetwork/SocialNetwork/src/co/uniquindio/redSocial/images/User.png" />
+                  <Image url="@../images/Cupo.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER" prefHeight="74.0" prefWidth="650.0">

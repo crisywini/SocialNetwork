@@ -91,7 +91,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextArea fx:id="postTextArea" prefHeight="100.0" prefWidth="442.0" style="-fx-background-color: #12d0a5;" />
+                        <TextArea fx:id="postTextArea" prefHeight="100.0" prefWidth="442.0" style="-fx-background-color: #8fbfff;" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="533.0">
@@ -108,7 +108,7 @@
                   </HBox>
                   <ScrollPane prefHeight="395.0" prefWidth="533.0">
                      <content>
-                        <VBox fx:id="postVBox" alignment="TOP_CENTER" prefHeight="395.0" prefWidth="533.0" style="-fx-background-color: #12d0a5; -fx-border-color: #623f1b;" />
+                        <VBox fx:id="postVBox" alignment="TOP_CENTER" prefHeight="395.0" prefWidth="533.0" style="-fx-background-color: #8fbfff; -fx-border-color: #8fbfff;" />
                      </content>
                   </ScrollPane>
                </children>

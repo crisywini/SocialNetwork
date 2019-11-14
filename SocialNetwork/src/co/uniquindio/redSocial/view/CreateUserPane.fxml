@@ -73,22 +73,22 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <TextField fx:id="nombreField" style="-fx-background-radius: 20px; -fx-background-color: #15a786;" />
+                        <TextField fx:id="nombreField" style="-fx-background-radius: 20px; -fx-background-color: #8fbfff;" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="apellidoField" style="-fx-background-radius: 20px; -fx-background-color: #15a786;" />
+                        <TextField fx:id="apellidoField" style="-fx-background-radius: 20px; -fx-background-color: #8fbfff;" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <TextField fx:id="emailField" style="-fx-background-radius: 20px; -fx-background-color: #15a786;" />
+                        <TextField fx:id="emailField" style="-fx-background-radius: 20px; -fx-background-color: #8fbfff;" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <TextField fx:id="nombreDeUsuarioField" style="-fx-background-radius: 20px; -fx-background-color: #15a786;" />
+                        <TextField fx:id="nombreDeUsuarioField" style="-fx-background-radius: 20px; -fx-background-color: #8fbfff;" />
                      </children>
                   </HBox>
                </children>

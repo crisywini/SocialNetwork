@@ -27,10 +27,10 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="323.0" prefWidth="700.0">
                <children>
-                  <TableView fx:id="requestedFriendsTableView" prefHeight="323.0" prefWidth="383.0" style="-fx-background-radius: 20px; -fx-background-color: #12d0a5;">
+                  <TableView fx:id="requestedFriendsTableView" prefHeight="323.0" prefWidth="383.0" style="-fx-background-radius: 20px; -fx-background-color: #76a4e2;">
                     <columns>
-                      <TableColumn fx:id="requestedFriendsNickTableColumn" prefWidth="75.0" style="-fx-background-color: #15a786;" text="NickName" />
-                      <TableColumn fx:id="requestedFriendsNameTableColumn" prefWidth="75.0" style="-fx-background-color: #15a786;" text="Nombre" />
+                      <TableColumn fx:id="requestedFriendsNickTableColumn" prefWidth="75.0" style="-fx-background-color: #8fbfff;" text="NickName" />
+                      <TableColumn fx:id="requestedFriendsNameTableColumn" prefWidth="75.0" style="-fx-background-color: #8fbfff;" text="Nombre" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

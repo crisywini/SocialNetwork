@@ -21,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
 public class Main extends Application implements ISocialNetworkControl {
@@ -63,6 +64,7 @@ public class Main extends Application implements ISocialNetworkControl {
 			principalController.setPrimaryStage(primaryStage);
 			primaryStage.setScene(scene);
 			primaryStage.setOnCloseRequest(closer);
+			primaryStage.getIcons().add(new Image("file:///C:/Users/Crisi/Desktop/Proyectos_Java/Proyectos_Estructuras/RedSocial/respositorio/SocialNetwork/src/co/uniquindio/redSocial/images/icono.png"));
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();

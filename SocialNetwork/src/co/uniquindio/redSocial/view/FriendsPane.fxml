@@ -51,19 +51,19 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="317.0" prefWidth="700.0" spacing="30.0">
                <children>
-                  <TableView fx:id="friendsTableView" prefHeight="0.0" prefWidth="250.0" style="-fx-background-color: #12d0a5; -fx-background-radius: 20px;">
+                  <TableView fx:id="friendsTableView" prefHeight="0.0" prefWidth="250.0" style="-fx-background-color: #76a4e2; -fx-background-radius: 20px;">
                      <columns>
-                        <TableColumn fx:id="nickNameFriendsTableColumn" prefWidth="75.0" style="-fx-background-color: #15a786;" text="NickName" />
-                        <TableColumn fx:id="nameFriendsTableColumn" prefWidth="75.0" style="-fx-background-color: #15a786;" text="Nombre" />
+                        <TableColumn fx:id="nickNameFriendsTableColumn" prefWidth="75.0" style="-fx-background-color: #8fbfff;" text="NickName" />
+                        <TableColumn fx:id="nameFriendsTableColumn" prefWidth="75.0" style="-fx-background-color: #8fbfff;" text="Nombre" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <TableView fx:id="usersTableView" prefHeight="0.0" prefWidth="250.0" style="-fx-background-color: #12d0a5; -fx-background-radius: 20px;">
+                  <TableView fx:id="usersTableView" prefHeight="0.0" prefWidth="250.0" style="-fx-background-color: #76a4e2; -fx-background-radius: 20px;">
                      <columns>
-                        <TableColumn fx:id="nickNameUsersTableColumn" prefWidth="75.0" style="-fx-background-color: #15a786;" text="NickName" />
-                        <TableColumn fx:id="nameUsersTableColumn" prefWidth="75.0" style="-fx-background-color: #15a786;" text="Nombre" />
+                        <TableColumn fx:id="nickNameUsersTableColumn" prefWidth="75.0" style="-fx-background-color: #8fbfff;" text="NickName" />
+                        <TableColumn fx:id="nameUsersTableColumn" prefWidth="75.0" style="-fx-background-color: #8fbfff;" text="Nombre" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

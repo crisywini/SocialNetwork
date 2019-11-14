@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="co.uniquindio.redSocial.controller.BlockedFriendsPaneController">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.redSocial.controller.BlockedFriendsPaneController">
    <children>
       <VBox alignment="CENTER" layoutX="300.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -32,10 +31,10 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="371.0" prefWidth="700.0">
                <children>
-                  <TableView fx:id="blockedFriendsTableView" prefHeight="393.0" prefWidth="409.0" style="-fx-background-radius: 20px; -fx-background-color: #12d0a5;">
+                  <TableView fx:id="blockedFriendsTableView" prefHeight="393.0" prefWidth="409.0" style="-fx-background-radius: 20px; -fx-background-color: #76a4e2;">
                     <columns>
-                      <TableColumn fx:id="blockedFriendsNickTableColumn" prefWidth="75.0" style="-fx-background-color: #15a786;" text="NickName" />
-                      <TableColumn fx:id="blockedFriendsNameTableColumn" prefWidth="75.0" style="-fx-background-color: #15a786;" text="Nombre" />
+                      <TableColumn fx:id="blockedFriendsNickTableColumn" prefWidth="75.0" style="-fx-background-color: #8fbfff;" text="NickName" />
+                      <TableColumn fx:id="blockedFriendsNameTableColumn" prefWidth="75.0" style="-fx-background-color: #8fbfff;" text="Nombre" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
