@@ -106,28 +106,28 @@ public class PrincipalPaneController {
 				loader.setLocation(Main.class.getResource("../view/SocialNetworkPane.fxml"));
 				socialNetworkPane = (BorderPane) loader.load();
 				socialNetworkPaneController = loader.getController();
-				socialNetworkPaneController.setPrincipalPane(this);
-				socialNetworkPaneController.setUsersMenu(usersMenu);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		socialNetworkPaneController.setPrincipalPane(this);
+		socialNetworkPaneController.setUsersMenu(usersMenu);
 		socialNetworkPaneController.fillMenuFriendsHBox();
 		principalPane.setCenter(socialNetworkPane);
 	}
 
 	public void showMessagesPane(User user, BorderPane pane) {
-		if (messagesPane == null) {
-			try {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(Main.class.getResource("../view/MessagesPane.fxml"));
-				messagesPane = (AnchorPane) loader.load();
-				messagesController = loader.getController();
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/MessagesPane.fxml"));
+			messagesPane = (AnchorPane) loader.load();
+			messagesController = loader.getController();
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 		messagesController.setPane(pane);
 		messagesController.setUser(user);
 		messagesController.setPrincipalPane(this);
@@ -135,15 +135,13 @@ public class PrincipalPaneController {
 	}
 
 	public void showFriendsPane(User user, BorderPane pane) {
-		if (friendsPane == null) {
-			try {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(Main.class.getResource("../view/FriendsPane.fxml"));
-				friendsPane = (AnchorPane) loader.load();
-				friendsController = loader.getController();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/FriendsPane.fxml"));
+			friendsPane = (AnchorPane) loader.load();
+			friendsController = loader.getController();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		friendsController.setPrincipalPane(this);
 		friendsController.setUser(user);

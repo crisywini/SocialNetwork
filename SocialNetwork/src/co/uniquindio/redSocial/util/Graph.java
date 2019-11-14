@@ -201,6 +201,23 @@ public class Graph<T> implements Serializable {
 		graph.get(name).setValue(value);
 	}
 
+	/**
+	 * Metodo que permite verificar si un Origin esta conectado con un nodo Destiny
+	 * 
+	 * @param origin
+	 * @param destiny
+	 * @return true si estan conectados
+	 * @throws NodeGraphNullException de la clase {@link Node}
+	 */
+	public boolean isConnectedWith(String origin, String destiny) throws NodeGraphNullException {
+		if (!graph.containsKey(origin) || !graph.containsKey(destiny))
+			throw new NodeGraphNullException(
+					"El nodo: " + origin + " o el nodo: " + destiny + " no se encuentra en el grafo");
+		Node<T> nodeOrigin = graph.get(origin);
+		Node<T> nodeDestiny = graph.get(destiny);
+		return nodeOrigin.isConnected(nodeDestiny.getValue());
+	}
+
 	@Override
 	public String toString() {
 		String info = "[";

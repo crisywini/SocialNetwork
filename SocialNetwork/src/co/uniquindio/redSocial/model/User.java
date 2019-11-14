@@ -160,35 +160,57 @@ public class User implements Serializable {
 	 * Metodo que permite enviar una solicitud de amistad a un usuario
 	 * 
 	 * @param user a quien se le enviara una solicitud de amistad
-	 * @throws BigIndexException   de la clase lista
-	 * @throws NodeRepeatException si el usuario ya esta en la lista de solicitudes
-	 *                             de amistad
+	 * @throws BigIndexException         de la clase lista
+	 * @throws NodeRepeatException       si el usuario ya esta en la lista de
+	 *                                   solicitudes de amistad
+	 * @throws RequestRequestedException
+	 * @throws NodeGraphNullException
+	 * @throws FriendException
 	 */
-	public void sendRequest(User user) throws BigIndexException, NodeRepeatException {
-		if (user.getFriendsRequest().getSize() == 0) {
-			user.getFriendsRequest().addLast(this);
-			return;
+	public void sendRequest(User user) throws BigIndexException, NodeRepeatException, RequestRequestedException,
+			NodeGraphNullException, FriendException {
+		if (getFriendsRequest().isOnList(user)) {
+			if (friends.isConnectedWith(nick_name, user.getNick_name()))
+				throw new FriendException("El usuario: " + user.getNick_name() + " ya es tu amigo");
+			throw new RequestRequestedException(
+					user.getNick_name() + " ya te envio la solicitud\nPor favor revisa en Solicitudes");
+		} else {
+			if (user.getFriendsRequest().getSize() == 0) {
+				user.getFriendsRequest().addLast(this);
+				return;
+			}
+			if (!user.getFriendsRequest().isOnList(this)) {
+				user.getFriendsRequest().addLast(this);
+			} else
+				throw new NodeRepeatException("Ya enviaste la solicitud de amistad a: " + user.getNick_name());
 		}
-		if (!user.getFriendsRequest().isOnList(this)) {
-			user.getFriendsRequest().addLast(this);
-		} else
-			throw new NodeRepeatException("Ya enviaste la solicitud de amistad a: " + user.getNick_name());
+
 	}
 
 	/**
 	 * Metodo para aceptar una solicitud de amistad
 	 * 
 	 * @param friend amigo solicitante
-	 * @throws BigIndexException      de la clase nodo
-	 * @throws NodeRepeatException    de la clase LinkedList
-	 * @throws NotFriendsException    si no tienes solicitud de amistad de ese amigo
+	 * @throws BigIndexException         de la clase nodo
+	 * @throws NodeRepeatException       de la clase LinkedList
+	 * @throws NotFriendsException       si no tienes solicitud de amistad de ese
+	 *                                   amigo
 	 * @throws NodeGraphNullException
+	 * @throws MaxNumberFriendsException si supera el maximo de amigos
 	 */
-	public void acceptRequest(User friend)
-			throws BigIndexException, NodeRepeatException, NotFriendsException, NodeGraphNullException {
-		if (friendsRequest.isOnList(friend)) {
-			friends.addNode(friend.getNick_name(), friend);
+	public void acceptRequest(User friend) throws BigIndexException, NodeRepeatException, NotFriendsException,
+			NodeGraphNullException, MaxNumberFriendsException {
+		if (friends.isOnGraph(friend.getNick_name())) {
 			friends.connectWithAnotherNode(nick_name, friend.getNick_name());
+			friend.getFriends().connectWithAnotherNode(friend.getNick_name(), nick_name);
+			friendsRequest.remove(friend);
+			return;
+		}
+		if (friendsRequest.isOnList(friend)) {
+			friend.addFriend(this);
+			this.addFriend(friend);
+			friends.connectWithAnotherNode(nick_name, friend.getNick_name());
+			friend.getFriends().connectWithAnotherNode(friend.getNick_name(), nick_name);
 			friendsRequest.remove(friend);
 		} else {
 			throw new NotFriendsException("No tienes una solicitud de amistad de: " + friend.getNick_name());
@@ -296,12 +318,15 @@ public class User implements Serializable {
 	 * Metodo que permite eliminar a un amigo del grafo de amigos
 	 * 
 	 * @param friend a ser eliminado
+	 * @throws BigIndexException
+	 * @throws NodeNotConnectedException
 	 * @throws NodeGraphWithLinksException de la clase Graph
 	 * @throws NodeGraphNullException      de la clase Graph
 	 */
-	public void removeFriend(User friend) throws NodeGraphWithLinksException, NodeGraphNullException {
+	public void removeFriend(User friend) throws NodeGraphNullException, NodeNotConnectedException, BigIndexException {
 		if (!friend.getNick_name().equals(nick_name)) {
-			friends.remove(friend.getNick_name());
+			friends.disconnect(nick_name, friend.getNick_name());
+			friend.getFriends().disconnect(friend.getNick_name(), nick_name);
 		}
 	}
 
@@ -349,7 +374,8 @@ public class User implements Serializable {
 		while (nick_nameFriends.hasNext()) {
 			nick_name = nick_nameFriends.next();
 			auxiliarFriend = friendsGraph.get(nick_name);
-			friends.add(auxiliarFriend.getValue());
+			if (auxiliarFriend.isConnected(this))
+				friends.add(auxiliarFriend.getValue());
 		}
 		return friends;
 	}

@@ -60,6 +60,17 @@ public class Node<T> implements Serializable {
 	}
 
 	/**
+	 * Metodo que permite verificar si el valor de un nodo esta conectado
+	 * 
+	 * @param value valor del nodo
+	 * @return si el nodo esta o no conectado
+	 */
+	public boolean isConnected(T value) {
+		int pos = getPosicionNode(value);
+		return pos != -1;
+	}
+
+	/**
 	 * Metodo que permite desconectar un nodo dado el indice en la lista de nodos
 	 * 
 	 * @param index el cual se quiere eliminar
@@ -136,9 +147,13 @@ public class Node<T> implements Serializable {
 		Node<T> auxiliar;
 		for (int i = 0; i < links.size() && !isOnLinks; i++) {
 			auxiliar = links.get(i);
-			if (auxiliar.getValue().equals(node.getValue())) {
-				index = i;
-				isOnLinks = true;
+			if (auxiliar != null) {
+				if (auxiliar.getSizelinks() > 0) {
+					if (auxiliar.getValue().equals(node.getValue())) {
+						index = i;
+						isOnLinks = true;
+					}
+				}
 			}
 		}
 		return index;

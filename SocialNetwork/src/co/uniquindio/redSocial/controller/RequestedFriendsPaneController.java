@@ -1,6 +1,7 @@
 package co.uniquindio.redSocial.controller;
 
 import co.uniquindio.redSocial.exceptions.BigIndexException;
+import co.uniquindio.redSocial.exceptions.MaxNumberFriendsException;
 import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
 import co.uniquindio.redSocial.exceptions.NotFriendsException;
@@ -46,6 +47,8 @@ public class RequestedFriendsPaneController {
 				e.printStackTrace();
 			} catch (NodeGraphNullException e) {
 				e.printStackTrace();
+			} catch (MaxNumberFriendsException e) {
+				principalPane.showAlert(e.getMessage(), "", "ERROR", AlertType.ERROR);
 			}
 		} else
 			principalPane.showAlert("Debes seleccionar un usuario", "", "ADVERTENCIA", AlertType.WARNING);

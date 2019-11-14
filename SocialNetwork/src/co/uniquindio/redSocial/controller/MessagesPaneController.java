@@ -54,6 +54,8 @@ public class MessagesPaneController {
 				Main.mailsData.setAll(user.getMailsArrayList());
 				messagesTableView.setItems(Main.mailsData);
 			}
+			else
+				messagesTableView.setId(null);
 		} catch (EmptyLinkedListException | BigIndexException e) {
 			e.printStackTrace();
 		}
@@ -73,8 +75,8 @@ public class MessagesPaneController {
 
 	public void setUser(User user) {
 		this.user = user;
-		nickNameLabel.setText(user.getNick_name());
 		initMessageTV();
+		nickNameLabel.setText(user.getNick_name());
 	}
 
 	public BorderPane getPane() {

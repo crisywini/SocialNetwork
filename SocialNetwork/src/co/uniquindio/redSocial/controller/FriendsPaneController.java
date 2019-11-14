@@ -1,10 +1,11 @@
 package co.uniquindio.redSocial.controller;
 
 import co.uniquindio.redSocial.exceptions.BigIndexException;
+import co.uniquindio.redSocial.exceptions.FriendException;
 import co.uniquindio.redSocial.exceptions.NodeGraphNullException;
-import co.uniquindio.redSocial.exceptions.NodeGraphWithLinksException;
 import co.uniquindio.redSocial.exceptions.NodeNotConnectedException;
 import co.uniquindio.redSocial.exceptions.NodeRepeatException;
+import co.uniquindio.redSocial.exceptions.RequestRequestedException;
 import co.uniquindio.redSocial.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
@@ -77,10 +78,12 @@ public class FriendsPaneController {
 				} else
 					principalPane.showAlert("Debes seleccionar a alguien diferente a ti", "", "ADVERTENCIA",
 							AlertType.WARNING);
-			} catch (NodeGraphWithLinksException e) {
-				e.printStackTrace();
 			} catch (NodeGraphNullException e) {
 				principalPane.showAlert(e.getMessage(), "", "ERROR", AlertType.ERROR);
+			} catch (NodeNotConnectedException e) {
+				principalPane.showAlert(e.getMessage(), "", "ERROR", AlertType.ERROR);
+			} catch (BigIndexException e) {
+				e.printStackTrace();
 			}
 		} else
 			principalPane.showAlert("Debes sleccionar a a algún amigo", "", "ADVERTENCIA", AlertType.WARNING);
@@ -103,6 +106,12 @@ public class FriendsPaneController {
 			} catch (BigIndexException e) {
 				e.printStackTrace();
 			} catch (NodeRepeatException e) {
+				principalPane.showAlert(e.getMessage(), "", "ERROR", AlertType.ERROR);
+			} catch (RequestRequestedException e) {
+				principalPane.showAlert(e.getMessage(), "", "ERROR", AlertType.ERROR);
+			} catch (NodeGraphNullException e) {
+				e.printStackTrace();
+			} catch (FriendException e) {
 				principalPane.showAlert(e.getMessage(), "", "ERROR", AlertType.ERROR);
 			}
 		} else
