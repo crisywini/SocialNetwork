@@ -108,7 +108,7 @@
                   </HBox>
                   <ScrollPane prefHeight="395.0" prefWidth="533.0">
                      <content>
-                        <VBox fx:id="postVBox" alignment="TOP_CENTER" prefHeight="395.0" prefWidth="533.0" style="-fx-background-color: #8fbfff; -fx-border-color: #8fbfff;" />
+                        <VBox fx:id="postVBox" alignment="TOP_CENTER" prefHeight="395.0" prefWidth="533.0" style="-fx-background-color: #b7cae3; -fx-border-color: #8fbfff;" />
                      </content>
                   </ScrollPane>
                </children>

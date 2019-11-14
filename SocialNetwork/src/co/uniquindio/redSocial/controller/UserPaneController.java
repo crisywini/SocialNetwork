@@ -43,13 +43,10 @@ public class UserPaneController {
 						if (auxiliarButton.getId().contains(auxiliar.getValue().getId())) {
 							if (auxiliarButton.getId().contains("likeBtn")) {
 								auxiliar.getValue().giveALike(user);
-								principalPane.showAlert(
-										"Has dado like a: \n" + auxiliar.getValue().getComment()
-												+ "\nCantidad de likes: "
-												+ auxiliar.getValue().getLikes().getLinkedList().getSize()
-												+ "\nCantidad de loves: "
-												+ auxiliar.getValue().getLoves().getLinkedList().getSize(),
-										"", "Like", AlertType.INFORMATION);
+								principalPane.showAlert("Has dado like a: \n" + auxiliar.getValue().getComment()
+										+ "\nCantidad de likes: " + auxiliar.getValue().getLikes().getLinkedList()
+										+ "\nCantidad de loves: " + auxiliar.getValue().getLoves().getLinkedList(), "",
+										"Like", AlertType.INFORMATION);
 							}
 						}
 						if (auxiliar.getLinks().size() == 0)
