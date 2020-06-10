@@ -1,0 +1,11 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.button {
+    -fx-background-color:  #8fbfff;
+    -fx-font-family: "Dubai";
+    -fx-background-radius: 20.0px;
+}
+.label{
+	-fx-font-family: "Dubai";
+	-fx-font-size: 14.0pt;
+}
+
